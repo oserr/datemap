@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # app.py
-from flask
+import flask
 
 # Create the Flask application
 app = flask.Flask(__name__, templates='.')

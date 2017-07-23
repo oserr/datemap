@@ -1,2 +1,5 @@
 # Ignore vim backup files
 *.swp
+
+# Ignore Google Maps API key
+google-maps-api-key.txt

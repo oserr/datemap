@@ -5,7 +5,7 @@ from flask import render_template
 from flask import send_from_directory
 
 # Create the Flask application
-app = flask.Flask(__name__, static_url_path='')
+app = flask.Flask(__name__, templates='.')
 
 API_KEY = open('google-maps-api-key.txt').read()
 

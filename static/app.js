@@ -6,6 +6,14 @@ var polygon = null;
 
 var placeMarkers = [];
 
+var dateLocations = [
+  'Choux Bakery', 'Top of the Mark', 'Nob Hill Spa',
+  'Telegraph Hill, Filbert Stairs', 'B. Patisserie',
+  'Mason Pacific', 'Shakespeare Garden', 'Golden Gate Bridge',
+  'Palace of Fine Arts', 'Press Club', 'Saison',
+  'Exploratorium', 'Stow Lake', 'Crissy Field', 'Waterbar'
+]
+
 function initMap() {
   let styles = [
     {

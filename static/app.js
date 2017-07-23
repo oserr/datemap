@@ -9,9 +9,22 @@ var placeMarkers = [];
 const COMPONENT_RESTRICTION = {locality: 'San Francisco, CA'};
 
 function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 40.7413549, lng: -73.9980244},
-        zoom: 13,
+    var geocoder = new google.maps.Geocoder();
+
+    let loc = {
+        address: 'San Francisco, CA',
+        componentRestrictions: COMPONENT_RESTRICTION
+    };
+
+    geocoder.geocode(loc, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: results[0].geometry.location,
+                zoom: 13,
+            });
+        } else {
+            window.alert('Unable to find map for San Francisco, CA')
+        }
     });
 
     var timeAutocomplete = new google.maps.places.Autocomplete(

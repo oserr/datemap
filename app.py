@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # app.py
-from flask import Flask
-from flask import render_template
-from flask import send_from_directory
+from flask
 
 # Create the Flask application
 app = flask.Flask(__name__, templates='.')

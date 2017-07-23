@@ -6,13 +6,7 @@ var polygon = null;
 
 var placeMarkers = [];
 
-var dateLocations = [
-  'Choux Bakery', 'Top of the Mark', 'Nob Hill Spa',
-  'Telegraph Hill, Filbert Stairs', 'B. Patisserie',
-  'Mason Pacific', 'Shakespeare Garden', 'Golden Gate Bridge',
-  'Palace of Fine Arts', 'Press Club', 'Saison',
-  'Exploratorium', 'Stow Lake', 'Crissy Field', 'Waterbar'
-]
+const COMPONENT_RESTRICTION = {locality: 'San Francisco, CA'};
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -43,6 +37,15 @@ function initMap() {
     {title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.719624, lng: -74.0089934}},
     {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}},
   ];
+
+  var dateLocations = [
+    'Choux Bakery', 'Top of the Mark', 'Nob Hill Spa',
+    'Telegraph Hill, Filbert Stairs', 'B. Patisserie',
+    'Mason Pacific', 'Shakespeare Garden', 'Golden Gate Bridge',
+    'Palace of Fine Arts', 'Press Club', 'Saison',
+    'Exploratorium', 'Stow Lake', 'Crissy Field', 'Waterbar'
+  ]
+
 
   var largeInfoWindow = new google.maps.InfoWindow();
 

@@ -3,7 +3,7 @@
 import flask
 
 # Create the Flask application
-app = flask.Flask(__name__, templates='.')
+app = flask.Flask(__name__, template_folder='.')
 
 API_KEY = open('google-maps-api-key.txt').read()
 

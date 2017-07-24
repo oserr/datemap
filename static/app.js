@@ -92,10 +92,6 @@ function initMap() {
     document.getElementById('show-listings').addEventListener('click', showListings);
     document.getElementById('hide-listings').addEventListener('click', hideMarkers);
 
-    document.getElementById('search-within-time').addEventListener('click', () => {
-        searchWithinTime();
-    });
-
     document.getElementById('go-places').addEventListener('click', textSearchPlaces);
 }
 
@@ -167,91 +163,6 @@ function makeMarkerIcon(markerColor) {
         new google.maps.Size(21, 34)
     );
     return markerImage;
-}
-
-function searchWithinTime() {
-    var distanceMatrixService = new google.maps.DistanceMatrixService;
-    var address = document.getElementById('search-within-time-text').value;
-    if (!address) {
-        window.alert('You must enter an address.');
-    } else {
-        hideMarkers();
-        var origins = [];
-        markers.forEach(marker => {
-            origins.push(marker.position);
-        });
-        var destination = address;
-        var mode = document.getElementById('mode').value;
-        var opts = {
-            origins: origins,
-            destinations: [destination],
-            travelMode: google.maps.TravelMode[mode],
-            unitSystem: google.maps.UnitSystem.IMPERIAL
-        }
-        distanceMatrixService.getDistanceMatrix(opts, function(response, status) {
-            if (status !== google.maps.DistanceMatrixStatus.OK) {
-                window.alert(`Error was ${status}`);
-            } else {
-                displayMarkersWithinTime(response);
-            }
-        });
-    }
-}
-
-function displayMarkersWithinTime(response) {
-    var maxDuration = document.getElementById('max-duration').value;
-    var origins = response.originAddresses;
-    var destination = response.destinationAddresses;
-    var atLeastOne = false;
-    for (var i = 0; i < origins.length; ++i) {
-        var results = response.rows[i].elements;
-        for (var j = 0; j < results.length; ++j) {
-            var element = results[j];
-            if (element.status === 'OK') {
-                var distanceText = element.distance.text;
-                var duration = element.duration.value / 60;
-                var durationText = element.duration.text;
-                if (duration <= maxDuration) {
-                    markers[i].setMap(map);
-                    atLeastOne = true;
-                    var infowindow = new google.maps.InfoWindow({
-                        content: `${durationText} away, ${distanceText}` +
-                          '<div><input type="button" value="View Route" onclick=' +
-                          '"displayDirections(&quot;' + origins[i] + '&quot;);"></input></div>'
-                    });
-                    infowindow.open(map, markers[i]);
-                    markers[i].infowindow = infowindow;
-                    google.maps.event.addListener(markers[i], 'click', function() {
-                        this.infowindow.close();
-                    });
-                }
-            }
-        }
-    }
-}
-
-function displayDirections(origin) {
-    hideMarkers();
-    var directionsService = new google.maps.DirectionsService;
-    var destinationAddress = document.getElementById('search-within-time-text').value;
-    var mode = document.getElementById('mode').value;
-    var opts = {
-        origin: origin,
-        destination: destinationAddress,
-        travelMode: google.maps.TravelMode[mode]
-    };
-    directionsService.route(opts, function(response, status) {
-        if (status === google.maps.DirectionsStatus.OK) {
-            var directionsDisplay = new google.maps.DirectionsRenderer({
-                map: map,
-                directions: response,
-                draggable: true,
-                polylineOptions: { strokeColor: 'green' }
-            });
-        } else {
-            window.alert(`Directions request failed to ${status}`);
-        }
-    });
 }
 
 function searchBoxPlaces(searchBox) {

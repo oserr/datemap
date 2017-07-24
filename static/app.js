@@ -29,10 +29,6 @@ function initMap() {
         document.getElementById('search-within-time-text')
     );
 
-    var zoomAutocomplete = new google.maps.places.Autocomplete(
-        document.getElementById('zoom-to-area-text')
-    );
-
     let twinPeaks = { address: 'Twin Peaks, San Francisco, CA' };
 
     geocoder.geocode(twinPeaks, function(cityResults, cityStatus) {
@@ -80,7 +76,6 @@ function initMap() {
                     }
                 });
             });
-            zoomAutocomplete.bindTo('bounds', map);
 
             var searchBox = new google.maps.places.SearchBox(
                 document.getElementById('places-search')
@@ -96,10 +91,6 @@ function initMap() {
 
     document.getElementById('show-listings').addEventListener('click', showListings);
     document.getElementById('hide-listings').addEventListener('click', hideMarkers);
-
-    document.getElementById('zoom-to-area').addEventListener('click', () => {
-        zoomToArea();
-    });
 
     document.getElementById('search-within-time').addEventListener('click', () => {
         searchWithinTime();
@@ -176,29 +167,6 @@ function makeMarkerIcon(markerColor) {
         new google.maps.Size(21, 34)
     );
     return markerImage;
-}
-
-
-function zoomToArea() {
-    var geocoder = new google.maps.Geocoder();
-    var address = document.getElementById('zoom-to-area-text').value;
-    if (address == '') {
-        window.alert('You must enter an area, or address.');
-    } else {
-        let loc = {
-            address: address,
-            componentRestrictions: COMPONENT_RESTRICTION
-        };
-        geocoder.geocode(loc, function(results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                console.log(`----> from search box: ${loc.address} location=${results[0].geometry.location}`);
-                map.setCenter(results[0].geometry.location);
-                map.setZoom(15);
-            } else {
-                window.alert('We could not find that location - try something else')
-            }
-        });
-    }
 }
 
 function searchWithinTime() {

@@ -2,21 +2,19 @@ var map;
 
 var markers = [];
 
-var polygon = null;
-
 var placeMarkers = [];
 
 var dateLocations = [];
-
-const COMPONENT_RESTRICTION = {locality: 'San Francisco, CA'};
 
 function initMap() {
     var dateLocationNames = [
         'Choux Bakery', 'Top of the Mark', 'Nob Hill Spa',
         'Telegraph Hill, Filbert Stairs', 'B. Patisserie',
         'Mason Pacific', 'Shakespeare Garden', 'Golden Gate Bridge',
+        /*
         'Palace of Fine Arts', 'Press Club', 'Saison',
         'Exploratorium', 'Stow Lake', 'Crissy Field', 'Waterbar'
+        */
     ]
 
     var largeInfoWindow = new google.maps.InfoWindow();
@@ -35,29 +33,28 @@ function initMap() {
         document.getElementById('zoom-to-area-text')
     );
 
-    let cityLocation = {
-        address: 'Twin Peaks, San Francisco, CA',
-        componentRestrictions: COMPONENT_RESTRICTION
-    };
+    let twinPeaks = { address: 'Twin Peaks, San Francisco, CA' };
 
-    geocoder.geocode(cityLocation, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            console.log('-> geocoded San Francisco, CA');
+    geocoder.geocode(twinPeaks, function(cityResults, cityStatus) {
+        if (cityStatus == google.maps.GeocoderStatus.OK) {
+            console.log(`-> geocoded San Francisco, CA location=${cityResults[0].geometry.location}`);
             map = new google.maps.Map(document.getElementById('map'), {
-                center: results[0].geometry.location,
-                zoom: 12,
+                center: cityResults[0].geometry.location,
+                zoom: 13,
             });
             dateLocationNames.forEach((dateLocationName, i) => {
                 let loc = {
-                    address: `${dateLocationName}, San Francisco`,
-                    componentRestrictions: COMPONENT_RESTRICTION
+                    address: dateLocationName,
                 };
-                geocoder.geocode(loc, function(results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        console.log(`--> geocoded ${loc.address}`);
+                geocoder.geocode(loc, function(dateLocResults, dateLocStatus) {
+                    if (dateLocStatus == google.maps.GeocoderStatus.OK) {
+                        console.log(`--> results for ${loc.address}`);
+                        dateLocResults.forEach((r, j) => {
+                            console.log(`--> result ${j} location=${r.geometry.location}`);
+                        });
 
                         let marker = new google.maps.Marker({
-                            position: results[0].geometry.location,
+                            position: dateLocResults[0].geometry.location,
                             title: loc.address,
                             icon: defaultIcon,
                             animation: google.maps.Animation.DROP,
@@ -77,10 +74,6 @@ function initMap() {
                         marker.addListener('mouseout', function() {
                             this.setIcon(defaultIcon);
                         });
-
-                        searchBox.addListener('places_changed', function() {
-                            searchBoxPlaces(this);
-                        });
                     } else {
                         console.log(`-xxx Unable to find ${loc.address} status=${status}`);
                         window.alert(`Unable to find ${loc.address} in San Francisco, CA`)
@@ -92,39 +85,17 @@ function initMap() {
             var searchBox = new google.maps.places.SearchBox(
                 document.getElementById('places-search')
             );
+            searchBox.addListener('places_changed', function() {
+                searchBoxPlaces(this);
+            });
             searchBox.setBounds(map.getBounds());
         } else {
             window.alert('Unable to find map for San Francisco, CA')
         }
     });
 
-    var drawingManager = new google.maps.drawing.DrawingManager({
-        drawingMode: google.maps.drawing.OverlayType.POLYGON,
-        drawingControl: true,
-        drawingControlOptions: {
-            position: google.maps.ControlPosition.TOP_LEFT,
-            drawingModes: [ google.maps.drawing.OverlayType.POLYGON ]
-        }
-    });
-
     document.getElementById('show-listings').addEventListener('click', showListings);
     document.getElementById('hide-listings').addEventListener('click', hideMarkers);
-    document.getElementById('toggle-drawing').addEventListener('click', () => {
-        toggleDrawing(drawingManager);
-    });
-
-    drawingManager.addListener('overlaycomplete', function(event) {
-        if (polygon) {
-            polygon.setMap(null);
-            hideMarkers();
-        }
-        drawingManager.setDrawingMode(null);
-        polygon = event.overlay;
-        polygon.setEditable(true);
-        searchWithinPolygon();
-        polygon.getPath().addListener('set_at', searchWithinPolygon);
-        polygon.getPath().addListener('insert_at', searchWithinPolygon);
-    });
 
     document.getElementById('zoom-to-area').addEventListener('click', () => {
         zoomToArea();
@@ -192,7 +163,7 @@ function showListings() {
     map.fitBounds(bounds);
 }
 
-function hideMarkers(markers) {
+function hideMarkers() {
     markers.forEach(marker => { marker.setMap(null); });
 }
 
@@ -207,26 +178,6 @@ function makeMarkerIcon(markerColor) {
     return markerImage;
 }
 
-function toggleDrawing(drawingManager) {
-    if (drawingManager.map) {
-        drawingManager.setMap(null);
-        if (polygon) {
-            polygon.setMap(null);
-        }
-    } else {
-        drawingManager.setMap(map);
-    }
-}
-
-function searchWithinPolygon() {
-    markers.forEach(marker => {
-      if (google.maps.geometry.poly.containsLocation(marker.position, polygon)) {
-          marker.setMap(map);
-      } else {
-          marker.setMap(null);
-      }
-    });
-}
 
 function zoomToArea() {
     var geocoder = new google.maps.Geocoder();
@@ -240,6 +191,7 @@ function zoomToArea() {
         };
         geocoder.geocode(loc, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
+                console.log(`----> from search box: ${loc.address} location=${results[0].geometry.location}`);
                 map.setCenter(results[0].geometry.location);
                 map.setZoom(15);
             } else {
@@ -367,6 +319,7 @@ function createMarkersForPlaces(places) {
             anchor: new google.maps.Point(15, 34),
             scaledSize: new google.maps.Size(25, 25),
         };
+        console.log(`---> got place ${place.name} location=${place.geometry.location}`);
         var marker = new google.maps.Marker({
             map: map,
             icon: icon,

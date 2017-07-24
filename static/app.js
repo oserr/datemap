@@ -6,52 +6,12 @@ var polygon = null;
 
 var placeMarkers = [];
 
+var dateLocations = [];
+
 const COMPONENT_RESTRICTION = {locality: 'San Francisco, CA'};
 
 function initMap() {
-    var geocoder = new google.maps.Geocoder();
-
-    let loc = {
-        address: 'San Francisco, CA',
-        componentRestrictions: COMPONENT_RESTRICTION
-    };
-
-    geocoder.geocode(loc, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: results[0].geometry.location,
-                zoom: 13,
-            });
-        } else {
-            window.alert('Unable to find map for San Francisco, CA')
-        }
-    });
-
-    var timeAutocomplete = new google.maps.places.Autocomplete(
-        document.getElementById('search-within-time-text')
-    );
-
-    var zoomAutocomplete = new google.maps.places.Autocomplete(
-        document.getElementById('zoom-to-area-text')
-    );
-
-    zoomAutocomplete.bindTo('bounds', map);
-
-    var searchBox = new google.maps.places.SearchBox(
-        document.getElementById('places-search')
-    );
-    searchBox.setBounds(map.getBounds());
-
-    var locations = [
-        {title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
-        {title: 'Chelsea Loft', location: {lat: 40.7448834, lng: -73.9949465}},
-        {title: 'Union Square Open Floor Plan', location: {lat: 40.7347062, lng: -73.9895759}},
-        {title: 'East Village Hp Studio', location: {lat: 40.7281777, lng: -73.984377}},
-        {title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.719624, lng: -74.0089934}},
-        {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}},
-    ];
-
-    var dateLocations = [
+    var dateLocationNames = [
         'Choux Bakery', 'Top of the Mark', 'Nob Hill Spa',
         'Telegraph Hill, Filbert Stairs', 'B. Patisserie',
         'Mason Pacific', 'Shakespeare Garden', 'Golden Gate Bridge',
@@ -61,6 +21,83 @@ function initMap() {
 
     var largeInfoWindow = new google.maps.InfoWindow();
 
+    var defaultIcon = makeMarkerIcon('0091ff');
+
+    var highlightedIcon = makeMarkerIcon('FFFF24');
+
+    var geocoder = new google.maps.Geocoder();
+
+    var timeAutocomplete = new google.maps.places.Autocomplete(
+        document.getElementById('search-within-time-text')
+    );
+
+    var zoomAutocomplete = new google.maps.places.Autocomplete(
+        document.getElementById('zoom-to-area-text')
+    );
+
+    let cityLocation = {
+        address: 'Twin Peaks, San Francisco, CA',
+        componentRestrictions: COMPONENT_RESTRICTION
+    };
+
+    geocoder.geocode(cityLocation, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            console.log('-> geocoded San Francisco, CA');
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: results[0].geometry.location,
+                zoom: 12,
+            });
+            dateLocationNames.forEach((dateLocationName, i) => {
+                let loc = {
+                    address: `${dateLocationName}, San Francisco`,
+                    componentRestrictions: COMPONENT_RESTRICTION
+                };
+                geocoder.geocode(loc, function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        console.log(`--> geocoded ${loc.address}`);
+
+                        let marker = new google.maps.Marker({
+                            position: results[0].geometry.location,
+                            title: loc.address,
+                            icon: defaultIcon,
+                            animation: google.maps.Animation.DROP,
+                            id: i,
+                        });
+
+                        markers.push(marker);
+
+                        marker.addListener('click', function() {
+                            populateInfoWindow(this, largeInfoWindow);
+                        });
+
+                        marker.addListener('mouseover', function() {
+                            this.setIcon(highlightedIcon);
+                        });
+
+                        marker.addListener('mouseout', function() {
+                            this.setIcon(defaultIcon);
+                        });
+
+                        searchBox.addListener('places_changed', function() {
+                            searchBoxPlaces(this);
+                        });
+                    } else {
+                        console.log(`-xxx Unable to find ${loc.address} status=${status}`);
+                        window.alert(`Unable to find ${loc.address} in San Francisco, CA`)
+                    }
+                });
+            });
+            zoomAutocomplete.bindTo('bounds', map);
+
+            var searchBox = new google.maps.places.SearchBox(
+                document.getElementById('places-search')
+            );
+            searchBox.setBounds(map.getBounds());
+        } else {
+            window.alert('Unable to find map for San Francisco, CA')
+        }
+    });
+
     var drawingManager = new google.maps.drawing.DrawingManager({
         drawingMode: google.maps.drawing.OverlayType.POLYGON,
         drawingControl: true,
@@ -68,30 +105,6 @@ function initMap() {
             position: google.maps.ControlPosition.TOP_LEFT,
             drawingModes: [ google.maps.drawing.OverlayType.POLYGON ]
         }
-    });
-
-    var defaultIcon = makeMarkerIcon('0091ff');
-
-    var highlightedIcon = makeMarkerIcon('FFFF24');
-
-    locations.forEach((loc, i) => {
-        let marker = new google.maps.Marker({
-            position: loc.location,
-            title: loc.title,
-            icon: defaultIcon,
-            animation: google.maps.Animation.DROP,
-            id: i,
-        });
-        markers.push(marker);
-        marker.addListener('click', function() {
-            populateInfoWindow(this, largeInfoWindow);
-        });
-        marker.addListener('mouseover', function() {
-            this.setIcon(highlightedIcon);
-        });
-        marker.addListener('mouseout', function() {
-            this.setIcon(defaultIcon);
-        });
     });
 
     document.getElementById('show-listings').addEventListener('click', showListings);
@@ -119,10 +132,6 @@ function initMap() {
 
     document.getElementById('search-within-time').addEventListener('click', () => {
         searchWithinTime();
-    });
-
-    searchBox.addListener('places_changed', function() {
-        searchBoxPlaces(this);
     });
 
     document.getElementById('go-places').addEventListener('click', textSearchPlaces);
@@ -227,7 +236,7 @@ function zoomToArea() {
     } else {
         let loc = {
             address: address,
-            componentRestrictions: {locality: 'New York'}
+            componentRestrictions: COMPONENT_RESTRICTION
         };
         geocoder.geocode(loc, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {

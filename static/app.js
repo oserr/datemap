@@ -61,7 +61,7 @@ function initGlobalVars() {
  */
 function geocodePlaceName(placeName) {
     return new Promise((resolve, reject) => {
-        let loc = { address: `${placeName}, San Francisco, CA`};
+        const loc = { address: `${placeName}, San Francisco, CA`};
         geocoder.geocode(loc, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 resolve({
@@ -69,7 +69,7 @@ function geocodePlaceName(placeName) {
                     location: results[0].geometry.location
                 });
             } else {
-                var err = `failed to geocode ${placeName}`;
+                const err = `failed to geocode ${placeName}`;
                 console.log(err);
                 reject(new Error(err));
             }
@@ -116,25 +116,25 @@ function populateInfoWindow(marker, infoWindow) {
             infoWindow.marker = null;
         });
         var streetViewService = new google.maps.StreetViewService();
-        var radius = 50;
+        const radius = 50;
 
         function getStreetView(data, status) {
             if (status == google.maps.StreetViewStatus.OK) {
                 console.log('status == OK in getStreetView');
-                var nearStreetViewLocation = data.location.latLng;
-                var heading = google.maps.geometry.spherical.computeHeading(
+                const nearStreetViewLocation = data.location.latLng;
+                const heading = google.maps.geometry.spherical.computeHeading(
                      nearStreetViewLocation,
                      marker.position
                 );
                 infoWindow.setContent('<div>' + marker.title + '</div><div id="pano"></div>');
-                var panoramaOptions = {
+                const panoramaOptions = {
                     position: nearStreetViewLocation,
                     pov: {
                         heading: heading,
                         pitch: 30,
                     }
                 };
-                var panorama = new google.maps.StreetViewPanorama(
+                const panorama = new google.maps.StreetViewPanorama(
                     document.getElementById('pano'),
                     panoramaOptions
                 );
@@ -154,7 +154,7 @@ function populateInfoWindow(marker, infoWindow) {
 }
 
 function showListings() {
-    var bounds = new google.maps.LatLngBounds();
+    const bounds = new google.maps.LatLngBounds();
     markers.forEach(marker => {
         marker.setMap(map);
         bounds.extend(marker.position);
@@ -167,12 +167,11 @@ function hideMarkers() {
 }
 
 function makeMarkerIcon(markerColor) {
-    var markerImage = new google.maps.MarkerImage(
+    return new google.maps.MarkerImage(
         `http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|${markerColor}|40|_|%E2%80%A2`,
         new google.maps.Size(21, 34),
         new google.maps.Point(0, 0),
         new google.maps.Point(10, 34),
         new google.maps.Size(21, 34)
     );
-    return markerImage;
 }

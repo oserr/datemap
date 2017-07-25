@@ -16,64 +16,9 @@ function initMap() {
     ]
 
     var largeInfoWindow = new google.maps.InfoWindow();
-
     var defaultIcon = makeMarkerIcon('0091ff');
-
     var highlightedIcon = makeMarkerIcon('FFFF24');
-
     var geocoder = new google.maps.Geocoder();
-
-    let twinPeaks = { address: 'Twin Peaks, San Francisco, CA' };
-
-    geocoder.geocode(twinPeaks, function(cityResults, cityStatus) {
-        if (cityStatus == google.maps.GeocoderStatus.OK) {
-            console.log(`-> geocoded San Francisco, CA location=${cityResults[0].geometry.location}`);
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: cityResults[0].geometry.location,
-                zoom: 13,
-            });
-            locationNames.forEach((dateLocationName, i) => {
-                let loc = {
-                    address: dateLocationName,
-                };
-                geocoder.geocode(loc, function(dateLocResults, dateLocStatus) {
-                    if (dateLocStatus == google.maps.GeocoderStatus.OK) {
-                        console.log(`--> results for ${loc.address}`);
-                        dateLocResults.forEach((r, j) => {
-                            console.log(`--> result ${j} location=${r.geometry.location}`);
-                        });
-
-                        let marker = new google.maps.Marker({
-                            position: dateLocResults[0].geometry.location,
-                            title: loc.address,
-                            icon: defaultIcon,
-                            animation: google.maps.Animation.DROP,
-                            id: i,
-                        });
-
-                        markers.push(marker);
-
-                        marker.addListener('click', function() {
-                            populateInfoWindow(this, largeInfoWindow);
-                        });
-
-                        marker.addListener('mouseover', function() {
-                            this.setIcon(highlightedIcon);
-                        });
-
-                        marker.addListener('mouseout', function() {
-                            this.setIcon(defaultIcon);
-                        });
-                    } else {
-                        console.log(`-xxx Unable to find ${loc.address} status=${status}`);
-                        window.alert(`Unable to find ${loc.address} in San Francisco, CA`)
-                    }
-                });
-            });
-        } else {
-            window.alert('Unable to find map for San Francisco, CA')
-        }
-    });
 
     document.getElementById('show-listings').addEventListener('click', showListings);
     document.getElementById('hide-listings').addEventListener('click', hideMarkers);
@@ -205,3 +150,56 @@ function makeMarkerIcon(markerColor) {
     );
     return markerImage;
 }
+
+/*
+    geocoder.geocode(twinPeaks, function(cityResults, cityStatus) {
+        if (cityStatus == google.maps.GeocoderStatus.OK) {
+            console.log(`-> geocoded San Francisco, CA location=${cityResults[0].geometry.location}`);
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: cityResults[0].geometry.location,
+                zoom: 13,
+            });
+            locationNames.forEach((dateLocationName, i) => {
+                let loc = {
+                    address: dateLocationName,
+                };
+                geocoder.geocode(loc, function(dateLocResults, dateLocStatus) {
+                    if (dateLocStatus == google.maps.GeocoderStatus.OK) {
+                        console.log(`--> results for ${loc.address}`);
+                        dateLocResults.forEach((r, j) => {
+                            console.log(`--> result ${j} location=${r.geometry.location}`);
+                        });
+
+                        let marker = new google.maps.Marker({
+                            position: dateLocResults[0].geometry.location,
+                            title: loc.address,
+                            icon: defaultIcon,
+                            animation: google.maps.Animation.DROP,
+                            id: i,
+                        });
+
+                        markers.push(marker);
+
+                        marker.addListener('click', function() {
+                            populateInfoWindow(this, largeInfoWindow);
+                        });
+
+                        marker.addListener('mouseover', function() {
+                            this.setIcon(highlightedIcon);
+                        });
+
+                        marker.addListener('mouseout', function() {
+                            this.setIcon(defaultIcon);
+                        });
+                    } else {
+                        console.log(`-xxx Unable to find ${loc.address} status=${status}`);
+                        window.alert(`Unable to find ${loc.address} in San Francisco, CA`)
+                    }
+                });
+            });
+        } else {
+            window.alert('Unable to find map for San Francisco, CA')
+        }
+    });
+*/
+

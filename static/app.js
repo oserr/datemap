@@ -4,6 +4,11 @@ var markers = [];
 
 var placeMarkers = [];
 
+var largeInfoWindow = new google.maps.InfoWindow();
+var defaultIcon = makeMarkerIcon('0091ff');
+var highlightedIcon = makeMarkerIcon('FFFF24');
+var geocoder = new google.maps.Geocoder();
+
 function initMap() {
     var locationNames = [
         'Choux Bakery', 'Top of the Mark', 'Nob Hill Spa',
@@ -14,11 +19,6 @@ function initMap() {
         'Exploratorium', 'Stow Lake', 'Crissy Field', 'Waterbar'
         */
     ]
-
-    var largeInfoWindow = new google.maps.InfoWindow();
-    var defaultIcon = makeMarkerIcon('0091ff');
-    var highlightedIcon = makeMarkerIcon('FFFF24');
-    var geocoder = new google.maps.Geocoder();
 
     geocodePlaceName('Twin Peaks')
     .then(locationInfo => {

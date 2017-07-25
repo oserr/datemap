@@ -4,8 +4,6 @@ var markers = [];
 
 var placeMarkers = [];
 
-var dateLocations = [];
-
 function initMap() {
     var locationNames = [
         'Choux Bakery', 'Top of the Mark', 'Nob Hill Spa',

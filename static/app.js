@@ -81,25 +81,6 @@ function initMap() {
     document.getElementById('hide-listings').addEventListener('click', hideMarkers);
 }
 
-function getSanFranciscoMap() {
-    return new Promise((resolve, reject) => {
-        let twinPeaks = { address: 'Twin Peaks, San Francisco, CA' };
-        geocoder.geocode(twinPeaks, function(results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: results[0].geometry.location,
-                    zoom: 13,
-                });
-                resolve();
-            } else {
-                var err = `failed to geocode ${twinPeaks.address}`;
-                console.log(err);
-                reject(new Error(err));
-            }
-        });
-    });
-}
-
 /**
  * Geocodes a place in San Francisco, CA.
  * @param {string} placeName - The name of a place in San Francisco, e.g.,

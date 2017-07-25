@@ -87,7 +87,7 @@ function initMap() {
  * Twin Peaks.
  * @return A Promise, which is resolved with an object on success, or rejected
  * with an error on failure. On success, the object contains the fields name
- * and location, which contain the name of the place searched for, and the
+ * and location, representing the name of the place searched for, and the
  * latitude and longitude coordinates, respectively.
  */
 function geocodePlaceName(placeName) {
@@ -112,7 +112,7 @@ function geocodePlaceName(placeName) {
  * Creates a new marker and pushes the marker into the markers array.
  * @param {object} locationInfo - The location information for the marker.
  * Contains fields name and location, representing the name of the location,
- * and the longitude and latitude coordinates.
+ * and the latitude and longitude coordinates.
  */
 function createMarker(locationInfo) {
     let marker = new google.maps.Marker({

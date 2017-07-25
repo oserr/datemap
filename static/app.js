@@ -20,6 +20,23 @@ function initMap() {
     var highlightedIcon = makeMarkerIcon('FFFF24');
     var geocoder = new google.maps.Geocoder();
 
+    geocodePlaceName('Twin Peaks')
+    .then(locationInfo => {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: locationInfo.location,
+            zoom: 13,
+        });
+        return map;
+    }).then(() => {
+        return locationNames.reduce((seq, locationName) => {
+            return seq.then(() => {
+                return geocodePlaceName(locationName);
+            }).then(createMarker);
+        }, Promise.resolve());
+    }).catch(err => {
+        alert(`Error: ${err.message}`);
+    });
+
     document.getElementById('show-listings').addEventListener('click', showListings);
     document.getElementById('hide-listings').addEventListener('click', hideMarkers);
 }

@@ -108,6 +108,36 @@ function geocodePlaceName(placeName) {
     });
 }
 
+/**
+ * Creates a new marker and pushes the marker into the markers array.
+ * @param {object} locationInfo - The location information for the marker.
+ * Contains fields name and location, representing the name of the location,
+ * and the longitude and latitude coordinates.
+ */
+function createMarker(locationInfo) {
+    let marker = new google.maps.Marker({
+        position: locationInfo.location,
+        title: locationInfo.name,
+        icon: defaultIcon,
+        animation: google.maps.Animation.DROP,
+        id: markers.length,
+    });
+
+    markers.push(marker);
+
+    marker.addListener('click', function() {
+        populateInfoWindow(this, largeInfoWindow);
+    });
+
+    marker.addListener('mouseover', function() {
+        this.setIcon(highlightedIcon);
+    });
+
+    marker.addListener('mouseout', function() {
+        this.setIcon(defaultIcon);
+    });
+}
+
 function populateInfoWindow(marker, infoWindow) {
     if (infoWindow.marker != marker) {
         infoWindow.setContent('');

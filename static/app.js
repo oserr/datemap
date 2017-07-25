@@ -1,13 +1,10 @@
 var map;
-
 var markers = [];
-
 var placeMarkers = [];
-
-var largeInfoWindow = new google.maps.InfoWindow();
-var defaultIcon = makeMarkerIcon('0091ff');
-var highlightedIcon = makeMarkerIcon('FFFF24');
-var geocoder = new google.maps.Geocoder();
+var largeInfoWindow;
+var defaultIcon;
+var highlightedIcon;
+var geocoder;
 
 function initMap() {
     var locationNames = [
@@ -19,6 +16,8 @@ function initMap() {
         'Exploratorium', 'Stow Lake', 'Crissy Field', 'Waterbar'
         */
     ]
+
+    initGlobalVars();
 
     geocodePlaceName('Twin Peaks')
     .then(locationInfo => {
@@ -39,6 +38,16 @@ function initMap() {
 
     document.getElementById('show-listings').addEventListener('click', showListings);
     document.getElementById('hide-listings').addEventListener('click', hideMarkers);
+}
+
+/**
+ * Initialize a set of global variables.
+ */
+function initGlobalVars() {
+    largeInfoWindow = new google.maps.InfoWindow();
+    defaultIcon = makeMarkerIcon('0091ff');
+    highlightedIcon = makeMarkerIcon('FFFF24');
+    geocoder = new google.maps.Geocoder();
 }
 
 /**

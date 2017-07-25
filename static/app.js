@@ -25,10 +25,6 @@ function initMap() {
 
     var geocoder = new google.maps.Geocoder();
 
-    var timeAutocomplete = new google.maps.places.Autocomplete(
-        document.getElementById('search-within-time-text')
-    );
-
     let twinPeaks = { address: 'Twin Peaks, San Francisco, CA' };
 
     geocoder.geocode(twinPeaks, function(cityResults, cityStatus) {

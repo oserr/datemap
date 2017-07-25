@@ -7,7 +7,7 @@ var placeMarkers = [];
 var dateLocations = [];
 
 function initMap() {
-    var dateLocationNames = [
+    var locationNames = [
         'Choux Bakery', 'Top of the Mark', 'Nob Hill Spa',
         'Telegraph Hill, Filbert Stairs', 'B. Patisserie',
         'Mason Pacific', 'Shakespeare Garden', 'Golden Gate Bridge',
@@ -34,7 +34,7 @@ function initMap() {
                 center: cityResults[0].geometry.location,
                 zoom: 13,
             });
-            dateLocationNames.forEach((dateLocationName, i) => {
+            locationNames.forEach((dateLocationName, i) => {
                 let loc = {
                     address: dateLocationName,
                 };

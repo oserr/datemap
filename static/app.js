@@ -100,6 +100,33 @@ function getSanFranciscoMap() {
     });
 }
 
+/**
+ * Geocodes a place in San Francisco, CA.
+ * @param {string} placeName - The name of a place in San Francisco, e.g.,
+ * Twin Peaks.
+ * @return A Promise, which is resolved with an object on success, or rejected
+ * with an error on failure. On success, the object contains the fields name
+ * and location, which contain the name of the place searched for, and the
+ * latitude and longitude coordinates, respectively.
+ */
+function geocodePlaceName(placeName) {
+    return new Promise((resolve, reject) => {
+        let loc = { address: `${placeName}, San Francisco, CA`};
+        geocoder.geocode(loc, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                resolve({
+                    name: placeName,
+                    location: results[0].geometry.location
+                });
+            } else {
+                var err = `failed to geocode ${placeName}`;
+                console.log(err);
+                reject(new Error(err));
+            }
+        });
+    });
+}
+
 function populateInfoWindow(marker, infoWindow) {
     if (infoWindow.marker != marker) {
         infoWindow.setContent('');

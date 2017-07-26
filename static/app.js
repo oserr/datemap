@@ -122,52 +122,6 @@ function createMarker(locationInfo) {
     });
 }
 
-function populateInfoWindow(marker, infoWindow) {
-    if (infoWindow.marker != marker) {
-        infoWindow.setContent('');
-        infoWindow.marker = marker;
-        //infoWindow.open(map, marker);
-        infoWindow.addListener('closeclick', function() {
-            infoWindow.marker = null;
-        });
-        var streetViewService = new google.maps.StreetViewService();
-        const radius = 50;
-
-        function getStreetView(data, status) {
-            if (status == google.maps.StreetViewStatus.OK) {
-                console.log('status == OK in getStreetView');
-                const nearStreetViewLocation = data.location.latLng;
-                const heading = google.maps.geometry.spherical.computeHeading(
-                     nearStreetViewLocation,
-                     marker.position
-                );
-                infoWindow.setContent('<div>' + marker.title + '</div><div id="pano"></div>');
-                const panoramaOptions = {
-                    position: nearStreetViewLocation,
-                    pov: {
-                        heading: heading,
-                        pitch: 30,
-                    }
-                };
-                const panorama = new google.maps.StreetViewPanorama(
-                    document.getElementById('pano'),
-                    panoramaOptions
-                );
-            } else {
-                console.log('status == NOT OK in getStreetView');
-                infoWindow.setContent(`<div>${marker.title}</div><div>No Street View Found</div>`);
-            }
-        }
-
-        streetViewService.getPanoramaByLocation(
-            marker.position,
-            radius,
-            getStreetView
-        );
-        infoWindow.open(map, marker);
-    }
-}
-
 /**
  * Shows a Google Maps street view in a modal window.
  * @param {Marker} marker - The Google Maps Marker reprsenting the location

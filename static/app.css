@@ -51,3 +51,8 @@ html, body {
 #zoom-to-area {
   width: 24%;
 }
+
+.modal {
+  position: absolute;
+  z-index: 10000;
+}

@@ -30,7 +30,12 @@ function initMap() {
         return locationNames.reduce((seq, locationName) => {
             return seq.then(() => {
                 return geocodePlaceName(locationName);
-            }).then(createMarker);
+            }).then(createMarker)
+            .catch(err => {
+                errMsg = `Error: ${err.message}`;
+                console.log(errMsg);
+                alert(errMsg);
+            });
         }, Promise.resolve());
     }).catch(err => {
         alert(`Error: ${err.message}`);

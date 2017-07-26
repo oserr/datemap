@@ -189,6 +189,10 @@ function showModal(marker) {
     );
 }
 
+/**
+ * Centers a modal div on a window.
+ * @param {jQuery object} modalDiv - The div representing the modal window.
+ */
 function centerModal(modalDiv) {
     const top = Math.max(modalDiv.height() - modalDiv.outerHeight(), 0) / 2;
     const left = Math.max(modalDiv.width() - modalDiv.outerWidth(), 0) / 2;

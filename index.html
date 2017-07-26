@@ -4,35 +4,18 @@
     <link rel="stylesheet" type="text/css" href="static/app.css">
   </head>
   <body>
-    <!-- Button trigger modal
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-      Launch demo modal
-    </button>
-    -->
-
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+    <div class="modal" id="info-modal">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div id="stree-view" class="row">
           </div>
-          <div class="modal-body">
-            <div id="stree-view" class="row">
-            </div>
-            <div id="foursquare" class="row">
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+          <div id="foursquare" class="row">
           </div>
         </div>
+        <button id="info-modal-btn" type="button" class="btn">Close</button>
       </div>
     </div>
-
-
 
     <div class="container">
       <div class="options-box">

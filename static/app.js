@@ -153,6 +153,41 @@ function populateInfoWindow(marker, infoWindow) {
     }
 }
 
+function showModal(marker) {
+    var streetViewService = new google.maps.StreetViewService();
+    const radius = 50;
+    var streetViewDiv = $('#street-view'),
+    streetViewService.getPanoramaByLocation(
+        marker.position,
+        radius,
+        function(data, status) {
+            if (status === google.maps.StreetViewStatus.OK) {
+                console.log('status == OK in getStreetView');
+                const nearLocation = data.location.latLng;
+                const heading = google.maps.geometry.spherical.computeHeading(
+                     nearLocation,
+                     marker.position
+                );
+                const opts = {
+                    position: nearLocation,
+                    pov: {
+                        heading: heading,
+                        pitch: 30,
+                    }
+                };
+                new google.maps.StreetViewPanorama(streetViewDiv, opts);
+                streetViewDiv.removeClass('hidden');
+                centerModal(streetViewDiv);
+                $(window).on('resize', () => {
+                    centerModal(streetViewDiv);
+                });
+            } else {
+                console.log('Unable to get street view');
+            }
+        }
+    );
+}
+
 function showListings() {
     const bounds = new google.maps.LatLngBounds();
     markers.forEach(marker => {

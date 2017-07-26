@@ -33,3 +33,7 @@ html, body {
   position: absolute;
   z-index: 10000;
 }
+
+.hidden {
+  display: none;
+}

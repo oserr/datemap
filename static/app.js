@@ -38,6 +38,11 @@ function initMap() {
 
     $('#show-listings').on('click', showListings);
     $('#hide-listings').on('click', hideMarkers);
+    $('#info-modal-btn').on('click', () => {
+        this = $(this);
+        this.empty();
+        this.addClass('hidden');
+    });
 }
 
 /**

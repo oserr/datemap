@@ -175,11 +175,12 @@ function showModal(marker) {
                         pitch: 30,
                     }
                 };
-                new google.maps.StreetViewPanorama(streetViewDiv, opts);
-                streetViewDiv.removeClass('hidden');
-                centerModal(streetViewDiv);
+                new google.maps.StreetViewPanorama($('#street-view')[0], opts);
+                var modalDiv = $('#modal-info'),
+                modalDiv.removeClass('hidden');
+                centerModal(modalDiv);
                 $(window).on('resize', () => {
-                    centerModal(streetViewDiv);
+                    centerModal(modalDiv);
                 });
             } else {
                 console.log('Unable to get street view');

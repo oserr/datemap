@@ -166,7 +166,7 @@ function populateInfoWindow(marker, infoWindow) {
 function showModal(marker) {
     var streetViewService = new google.maps.StreetViewService();
     const radius = 50;
-    var streetViewDiv = $('#street-view'),
+    var streetViewDiv = $('#street-view');
     streetViewService.getPanoramaByLocation(
         marker.position,
         radius,
@@ -186,7 +186,7 @@ function showModal(marker) {
                     }
                 };
                 new google.maps.StreetViewPanorama($('#street-view')[0], opts);
-                var modalDiv = $('#modal-info'),
+                var modalDiv = $('#modal-info');
                 modalDiv.removeClass('hidden');
                 centerModal(modalDiv);
                 $(window).on('resize', () => {
@@ -210,8 +210,8 @@ function centerModal(modalDiv) {
     const left = Math.max(modalDiv.width() - modalDiv.outerWidth(), 0) / 2;
     jqWindow = $(window);
     modalDiv.css({
-        top: top + jqWindow.scrollTop();
-        left: left + jqWindow.scrollLeft();
+        top: top + jqWindow.scrollTop(),
+        left: left + jqWindow.scrollLeft()
     });
 }
 

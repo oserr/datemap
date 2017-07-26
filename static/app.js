@@ -40,7 +40,7 @@ function initMap() {
     $('#hide-listings').on('click', hideMarkers);
     $('#close-modal-btn').on('click', () => {
         $('#street-view').empty();
-        modal = $('#info-modal');
+        modal = $('#modal-info');
         modal.addClass('hidden');
     });
 }
@@ -164,6 +164,7 @@ function populateInfoWindow(marker, infoWindow) {
  * to be seen in a street view.
  */
 function showModal(marker) {
+    console.log('called showModal');
     var streetViewService = new google.maps.StreetViewService();
     const radius = 50;
     var streetViewDiv = $('#street-view');
@@ -172,7 +173,7 @@ function showModal(marker) {
         radius,
         function(data, status) {
             if (status === google.maps.StreetViewStatus.OK) {
-                console.log('status == OK in getStreetView');
+                console.log('StreetViewStatus is OK');
                 const nearLocation = data.location.latLng;
                 const heading = google.maps.geometry.spherical.computeHeading(
                      nearLocation,
@@ -185,9 +186,9 @@ function showModal(marker) {
                         pitch: 30,
                     }
                 };
-                new google.maps.StreetViewPanorama($('#street-view')[0], opts);
                 var modalDiv = $('#modal-info');
                 modalDiv.removeClass('hidden');
+                new google.maps.StreetViewPanorama($('#street-view')[0], opts);
                 centerModal(modalDiv);
                 $(window).on('resize', () => {
                     centerModal(modalDiv);
@@ -206,9 +207,9 @@ function showModal(marker) {
 function centerModal(modalDiv) {
     // The following logic to center modal window is taken from Javascript and
     // Jquery: interactive front-end web development, by Jon Duckett.
-    const top = Math.max(modalDiv.height() - modalDiv.outerHeight(), 0) / 2;
-    const left = Math.max(modalDiv.width() - modalDiv.outerWidth(), 0) / 2;
     jqWindow = $(window);
+    const top = Math.max(jqWindow.height() - modalDiv.outerHeight(), 0) / 2;
+    const left = Math.max(jqWindow.width() - modalDiv.outerWidth(), 0) / 2;
     modalDiv.css({
         top: top + jqWindow.scrollTop(),
         left: left + jqWindow.scrollLeft()

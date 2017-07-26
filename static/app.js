@@ -212,12 +212,35 @@ function showModal(marker) {
 function centerModal(modalDiv) {
     // The following logic to center modal window is taken from Javascript and
     // Jquery: interactive front-end web development, by Jon Duckett.
-    jqWindow = $(window);
-    const top = Math.max(jqWindow.height() - modalDiv.outerHeight(), 0) / 2;
-    const left = Math.max(jqWindow.width() - modalDiv.outerWidth(), 0) / 2;
+    const jqWindow = $(window);
+
+    const windowHeight = jqWindow.height();
+    console.log(`computed wHeight=${windowHeight} in pixels`);
+    const windowWidth = jqWindow.width();
+    console.log(`computed wWidth=${windowWidth} in pixels`);
+    const modalHeight = windowHeight * .7;
+    const modalWidth = windowWidth * .7;
+
+    const top = Math.max(windowHeight - modalDiv.outerHeight(), 0) / 2;
+    const left = Math.max(windowWidth - modalDiv.outerWidth(), 0) / 2;
+
     modalDiv.css({
         top: top + jqWindow.scrollTop(),
-        left: left + jqWindow.scrollLeft()
+        left: left + jqWindow.scrollLeft(),
+        height: modalHeight,
+        width: modalWidth,
+        padding: 20,
+        background: 'black'
+    });
+
+    $('#street-view').css({
+        height: modalHeight * .5,
+        width: 'auto',
+    });
+
+    $('#foursquare').css({
+        height: modalHeight * .5,
+        width: 'auto',
     });
 }
 

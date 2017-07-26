@@ -199,6 +199,8 @@ function showModal(marker) {
  * @param {jQuery object} modalDiv - The div representing the modal window.
  */
 function centerModal(modalDiv) {
+    // The following logic to center modal window is taken from Javascript and
+    // Jquery: interactive front-end web development, by Jon Duckett.
     const top = Math.max(modalDiv.height() - modalDiv.outerHeight(), 0) / 2;
     const left = Math.max(modalDiv.width() - modalDiv.outerWidth(), 0) / 2;
     jqWindow = $(window);

@@ -153,6 +153,11 @@ function populateInfoWindow(marker, infoWindow) {
     }
 }
 
+/**
+ * Shows a Google Maps street view in a modal window.
+ * @param {Marker} marker - The Google Maps Marker reprsenting the location
+ * to be seen in a street view.
+ */
 function showModal(marker) {
     var streetViewService = new google.maps.StreetViewService();
     const radius = 50;

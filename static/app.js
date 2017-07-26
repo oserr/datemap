@@ -36,8 +36,8 @@ function initMap() {
         alert(`Error: ${err.message}`);
     });
 
-    document.getElementById('show-listings').addEventListener('click', showListings);
-    document.getElementById('hide-listings').addEventListener('click', hideMarkers);
+    $('#show-listings').on('click', showListings);
+    $('#hide-listings').on('click', hideMarkers);
 }
 
 /**

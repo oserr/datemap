@@ -37,12 +37,17 @@ function initMap() {
                 alert(errMsg);
             });
         }, Promise.resolve());
+    }).then(() => {
+        const bounds = new google.maps.LatLngBounds();
+        markers.forEach(marker => {
+            marker.setMap(map);
+            bounds.extend(marker.position);
+        });
+        map.fitBounds(bounds);
     }).catch(err => {
         alert(`Error: ${err.message}`);
     });
 
-    $('#show-listings').on('click', showListings);
-    $('#hide-listings').on('click', hideMarkers);
     $('#close-modal-btn').on('click', () => {
         $('#street-view').empty();
         modal = $('#modal-info');
@@ -242,19 +247,6 @@ function centerModal(modalDiv) {
         height: modalHeight * .5,
         width: 'auto',
     });
-}
-
-function showListings() {
-    const bounds = new google.maps.LatLngBounds();
-    markers.forEach(marker => {
-        marker.setMap(map);
-        bounds.extend(marker.position);
-    });
-    map.fitBounds(bounds);
-}
-
-function hideMarkers() {
-    markers.forEach(marker => { marker.setMap(null); });
 }
 
 function makeMarkerIcon(markerColor) {

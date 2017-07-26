@@ -95,7 +95,7 @@ function createMarker(locationInfo) {
     markers.push(marker);
 
     marker.addListener('click', function() {
-        populateInfoWindow(this, largeInfoWindow);
+        showModal(this);
     });
 
     marker.addListener('mouseover', function() {

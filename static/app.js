@@ -39,9 +39,9 @@ function initMap() {
     $('#show-listings').on('click', showListings);
     $('#hide-listings').on('click', hideMarkers);
     $('#close-modal-btn').on('click', () => {
-        this = $(this);
-        this.empty();
-        this.addClass('hidden');
+        $('#street-view').empty();
+        modal = $('#info-modal');
+        modal.addClass('hidden');
     });
 }
 

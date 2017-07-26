@@ -189,6 +189,16 @@ function showModal(marker) {
     );
 }
 
+function centerModal(modalDiv) {
+    const top = Math.max(modalDiv.height() - modalDiv.outerHeight(), 0) / 2;
+    const left = Math.max(modalDiv.width() - modalDiv.outerWidth(), 0) / 2;
+    jqWindow = $(window);
+    modalDiv.css({
+        top: top + jqWindow.scrollTop();
+        left: left + jqWindow.scrollLeft();
+    });
+}
+
 function showListings() {
     const bounds = new google.maps.LatLngBounds();
     markers.forEach(marker => {

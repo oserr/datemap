@@ -46,7 +46,7 @@ class ViewModel {
 
     let self = this;
 
-    geocodePlaceName(cityCenter, geocoder)
+    geocodePlaceName(cityCenter, self.geocoder)
     .then(locationInfo => {
       self.map = new google.maps.Map(document.getElementById('map'), {
         center: locationInfo.location,

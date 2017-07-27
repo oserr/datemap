@@ -150,12 +150,13 @@ function initGlobalVars() {
  * Geocodes a place in San Francisco, CA.
  * @param {string} placeName - The name of a place in San Francisco, e.g.,
  * Twin Peaks.
+ * @param {Geocoder} geocoder - A Google Maps API geocoder.
  * @return A Promise, which is resolved with an object on success, or rejected
  * with an error on failure. On success, the object contains the fields name
  * and location, representing the name of the place searched for, and the
  * latitude and longitude coordinates, respectively.
  */
-function geocodePlaceName(placeName) {
+function geocodePlaceName(placeName, geocoder) {
   return new Promise((resolve, reject) => {
     const loc = { address: `${placeName}, San Francisco, CA`};
     geocoder.geocode(loc, function(results, status) {

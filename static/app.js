@@ -52,29 +52,24 @@ class ViewModel {
         center: locationInfo.location,
         zoom: 13,
       });
-    }).then(() => {
+    })
+    .then(() => {
       return locationNames.reduce((seq, locationName) => {
-        return seq.then(() => {
-          return geocodePlaceName(locationName, self.geocoder);
-        }).then(createDatePlace.bind(self))
-        .then(datePlace => {
-          self.datePlaces.push(datePlace);
-        }).catch(err => {
-          errMsg = `Error: ${err.message}`;
-          console.log(errMsg);
-          alert(errMsg);
-        });
+        return seq.then(() => geocodePlaceName(locationName, self.geocoder))
+        .then(createDatePlace.bind(self))
+        .then(datePlace => self.datePlaces.push(datePlace))
+        .catch(err => reportError(err));
       }, Promise.resolve());
-    }).then(() => {
+    })
+    .then(() => {
       const bounds = new google.maps.LatLngBounds();
       self.datePlaces.forEach(datePlace => {
         datePlace.marker.setMap(self.map);
         bounds.extend(datePlace.marker.position);
       });
       self.map.fitBounds(bounds);
-    }).catch(err => {
-      alert(`Error: ${err.message}`);
-    });
+    })
+    .catch(err => reportError(err));
 
     $('#close-modal-btn').on('click', () => {
       $('#street-view').empty();

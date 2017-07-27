@@ -1,5 +1,6 @@
 const MAX_4SQUARE_PICS = 5;
 
+
 class DatePlace {
   constructor(datePlace) {
     this.datePlace = datePlace;
@@ -9,6 +10,7 @@ class DatePlace {
     this.venue = null;
   }
 }
+
 
 class Venue {
   constructor(venue) {
@@ -34,6 +36,7 @@ class Venue {
     }
   }
 }
+
 
 class ViewModel {
   constructor(cityCenter, locationNames) {
@@ -96,6 +99,7 @@ function initViewModel() {
   ko.applyBindings(new ViewModel());
 }
 
+
 /**
  * Geocodes a place in San Francisco, CA.
  * @param {string} placeName - The name of a place in San Francisco, e.g.,
@@ -123,6 +127,7 @@ function geocodePlaceName(placeName, geocoder) {
     });
   });
 }
+
 
 /**
  * Creates a new marker and pushes the marker into the markers array.
@@ -153,6 +158,7 @@ function createMarker(locationInfo) {
     this.setIcon(defaultIcon);
   });
 }
+
 
 /**
  * Shows a Google Maps street view in a modal window.
@@ -196,6 +202,7 @@ function showModal(marker) {
   );
 }
 
+
 /**
  * Centers a modal div on a window.
  * @param {jQuery object} modalDiv - The div representing the modal window.
@@ -234,6 +241,7 @@ function centerModal(modalDiv) {
     width: 'auto',
   });
 }
+
 
 function makeMarkerIcon(markerColor) {
   return new google.maps.MarkerImage(

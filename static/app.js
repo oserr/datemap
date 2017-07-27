@@ -37,7 +37,6 @@ class Venue {
 
 var map;
 var markers = [];
-var placeMarkers = [];
 var defaultIcon;
 var highlightedIcon;
 var geocoder;

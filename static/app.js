@@ -35,6 +35,53 @@ class Venue {
   }
 }
 
+class ViewModel {
+  constructor(cityCenter, locationNames) {
+    this.map = null;
+    this.datePlaces = [];
+    this.geocoder = new google.maps.Geocoder();
+    this.defaultIcon = makeMarkerIcon('0091ff');
+    this.highlightedIcon = makeMarkerIcon('FFFF24');
+
+    geocodePlaceName(cityCenter, geocoder)
+    .then(locationInfo => {
+      this.map = new google.maps.Map(document.getElementById('map'), {
+        center: locationInfo.location,
+        zoom: 13,
+      });
+      return map;
+    }).then(() => {
+      return locationNames.reduce((seq, locationName) => {
+        return seq.then(() => {
+          return geocodePlaceName(locationName, geocoder);
+        }).then(createDatePlace)
+        .then(function(datePlace) {
+          this.datePlaces.push(datePlace);
+        }).catch(err => {
+          errMsg = `Error: ${err.message}`;
+          console.log(errMsg);
+          alert(errMsg);
+        });
+      }, Promise.resolve());
+    }).then(() => {
+      const bounds = new google.maps.LatLngBounds();
+      this.datePlaces.forEach(datePlace => {
+        datePlace.marker.setMap(this.map);
+        bounds.extend(datePlace.marker.position);
+      });
+      this.map.fitBounds(bounds);
+    }).catch(err => {
+      alert(`Error: ${err.message}`);
+    });
+
+    $('#close-modal-btn').on('click', () => {
+      $('#street-view').empty();
+      modal = $('#modal-info');
+      modal.addClass('hidden');
+    });
+  }
+}
+
 var map;
 var markers = [];
 var defaultIcon;

@@ -43,6 +43,8 @@ class ViewModel {
     this.geocoder = new google.maps.Geocoder();
     this.defaultIcon = makeMarkerIcon('0091ff');
     this.highlightedIcon = makeMarkerIcon('FFFF24');
+    this.currentDatePlace = ko.observable(null);
+    this.modalIsVisible = ko.computed(() => this.currentDatePlace() !== null);
 
     let self = this;
 

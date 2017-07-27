@@ -38,7 +38,6 @@ class Venue {
 var map;
 var markers = [];
 var placeMarkers = [];
-var largeInfoWindow;
 var defaultIcon;
 var highlightedIcon;
 var geocoder;
@@ -96,7 +95,6 @@ function initMap() {
  * Initialize a set of global variables.
  */
 function initGlobalVars() {
-  largeInfoWindow = new google.maps.InfoWindow();
   defaultIcon = makeMarkerIcon('0091ff');
   highlightedIcon = makeMarkerIcon('FFFF24');
   geocoder = new google.maps.Geocoder();

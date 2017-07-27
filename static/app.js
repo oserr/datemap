@@ -1,3 +1,12 @@
+class DatePlace {
+  constructor(datePlace) {
+    this.datePlace = datePlace;
+    this.placeName = null;
+    this.marker = null;
+    this.streetViewNode = null;
+  }
+}
+
 var map;
 var markers = [];
 var placeMarkers = [];

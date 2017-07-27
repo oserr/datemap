@@ -88,7 +88,7 @@ var defaultIcon;
 var highlightedIcon;
 var geocoder;
 
-function initMap() {
+function initViewModel() {
   var locationNames = [
     'Choux Bakery', 'Top of the Mark', 'Nob Hill Spa',
     'Telegraph Hill, Filbert Stairs', 'B. Patisserie',
@@ -98,43 +98,7 @@ function initMap() {
     'Exploratorium', 'Stow Lake', 'Crissy Field', 'Waterbar'
     */
   ]
-
-  initGlobalVars();
-
-  geocodePlaceName('Twin Peaks')
-  .then(locationInfo => {
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: locationInfo.location,
-      zoom: 13,
-    });
-    return map;
-  }).then(() => {
-    return locationNames.reduce((seq, locationName) => {
-      return seq.then(() => {
-        return geocodePlaceName(locationName);
-      }).then(createMarker)
-      .catch(err => {
-        errMsg = `Error: ${err.message}`;
-        console.log(errMsg);
-        alert(errMsg);
-      });
-    }, Promise.resolve());
-  }).then(() => {
-    const bounds = new google.maps.LatLngBounds();
-    markers.forEach(marker => {
-      marker.setMap(map);
-      bounds.extend(marker.position);
-    });
-    map.fitBounds(bounds);
-  }).catch(err => {
-    alert(`Error: ${err.message}`);
-  });
-
-  $('#close-modal-btn').on('click', () => {
-    $('#street-view').empty();
-    modal = $('#modal-info');
-    modal.addClass('hidden');
-  });
+  ko.applyBindings(new ViewModel());
 }
 
 /**

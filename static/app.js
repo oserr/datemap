@@ -6,6 +6,7 @@ class DatePlace {
     this.placeName = null;
     this.marker = null;
     this.streetViewNode = null;
+    this.venue = null;
   }
 }
 

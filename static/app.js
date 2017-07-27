@@ -85,6 +85,17 @@ class ViewModel {
 }
 
 
+/**
+ * Logs an error to the console and the view port.
+ * @param {Error} err - An error object.
+ */
+function reportError(err) {
+  errMsg = `Error: ${err.message}`;
+  console.log(errMsg);
+  alert(errMsg);
+}
+
+
 function initViewModel() {
   var locationNames = [
     'Choux Bakery', 'Top of the Mark', 'Nob Hill Spa',

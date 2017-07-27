@@ -44,20 +44,21 @@ class ViewModel {
     this.defaultIcon = makeMarkerIcon('0091ff');
     this.highlightedIcon = makeMarkerIcon('FFFF24');
 
+    let self = this;
+
     geocodePlaceName(cityCenter, geocoder)
     .then(locationInfo => {
-      this.map = new google.maps.Map(document.getElementById('map'), {
+      self.map = new google.maps.Map(document.getElementById('map'), {
         center: locationInfo.location,
         zoom: 13,
       });
-      return map;
     }).then(() => {
       return locationNames.reduce((seq, locationName) => {
         return seq.then(() => {
-          return geocodePlaceName(locationName, geocoder);
-        }).then(createDatePlace)
-        .then(function(datePlace) {
-          this.datePlaces.push(datePlace);
+          return geocodePlaceName(locationName, self.geocoder);
+        }).then(createDatePlace.bind(self))
+        .then(datePlace => {
+          self.datePlaces.push(datePlace);
         }).catch(err => {
           errMsg = `Error: ${err.message}`;
           console.log(errMsg);
@@ -66,11 +67,11 @@ class ViewModel {
       }, Promise.resolve());
     }).then(() => {
       const bounds = new google.maps.LatLngBounds();
-      this.datePlaces.forEach(datePlace => {
-        datePlace.marker.setMap(this.map);
+      self.datePlaces.forEach(datePlace => {
+        datePlace.marker.setMap(self.map);
         bounds.extend(datePlace.marker.position);
       });
-      this.map.fitBounds(bounds);
+      self.map.fitBounds(bounds);
     }).catch(err => {
       alert(`Error: ${err.message}`);
     });
@@ -128,33 +129,36 @@ function geocodePlaceName(placeName, geocoder) {
 
 
 /**
- * Creates a new marker and pushes the marker into the markers array.
+ * Creates a new DatePlace object with a Google Maps Marker and attaches
+ * some listeners on the marker.
  * @param {object} locationInfo - The location information for the marker.
  * Contains fields name and location, representing the name of the location,
  * and the latitude and longitude coordinates.
  */
-function createMarker(locationInfo) {
-  let marker = new google.maps.Marker({
+function createDatePlace(locationInfo) {
+
+  const self = this;
+
+  const marker = new google.maps.Marker({
     position: locationInfo.location,
     title: locationInfo.name,
-    icon: defaultIcon,
+    icon: self.defaultIcon,
     animation: google.maps.Animation.DROP,
-    id: markers.length,
   });
-
-  markers.push(marker);
 
   marker.addListener('click', function() {
     showModal(this);
   });
 
   marker.addListener('mouseover', function() {
-    this.setIcon(highlightedIcon);
+    this.setIcon(self.highlightedIcon);
   });
 
   marker.addListener('mouseout', function() {
-    this.setIcon(defaultIcon);
+    this.setIcon(self.defaultIcon);
   });
+
+  return new DatePlace(marker);
 }
 
 

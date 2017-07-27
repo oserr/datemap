@@ -96,7 +96,7 @@ function initViewModel() {
     'Exploratorium', 'Stow Lake', 'Crissy Field', 'Waterbar'
     */
   ]
-  ko.applyBindings(new ViewModel());
+  ko.applyBindings(new ViewModel('Twin Peaks', locationNames));
 }
 
 

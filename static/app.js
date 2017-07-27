@@ -2,10 +2,8 @@ const MAX_4SQUARE_PICS = 5;
 
 
 class DatePlace {
-  constructor(datePlace) {
-    this.datePlace = datePlace;
-    this.placeName = null;
-    this.marker = null;
+  constructor(marker) {
+    this.marker = marker;
     this.streetViewNode = null;
     this.venue = null;
   }

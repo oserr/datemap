@@ -1,9 +1,36 @@
+const MAX_4SQUARE_PICS = 5;
+
 class DatePlace {
   constructor(datePlace) {
     this.datePlace = datePlace;
     this.placeName = null;
     this.marker = null;
     this.streetViewNode = null;
+  }
+}
+
+class Venue {
+  constructor(venue) {
+    this.name = venue.name;
+    this.url = venue.url;
+    this.formattedPhone = venue.contact.formattedPhone;
+    this.formattedAddress = venue.location.formattedAddress;
+    this.rating = venue.rating;
+    this.ratingColor = venue.ratingColor;
+    this.photoLinks = [];
+
+    let total = 0;
+    const totalItems = venue.photos.groups.count;
+    for (let i = 0; i < totalItems && total < MAX_4SQUARE_PICS; ++i) {
+      item = venue.photos.groups.items[i];
+      if (item.visibility === 'public') {
+        this.photoLinks.push({
+          prefix: item.prefix,
+          suffix: item.suffix,
+        });
+        ++total;
+      }
+    }
   }
 }
 

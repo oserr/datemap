@@ -138,15 +138,6 @@ function initMap() {
 }
 
 /**
- * Initialize a set of global variables.
- */
-function initGlobalVars() {
-  defaultIcon = makeMarkerIcon('0091ff');
-  highlightedIcon = makeMarkerIcon('FFFF24');
-  geocoder = new google.maps.Geocoder();
-}
-
-/**
  * Geocodes a place in San Francisco, CA.
  * @param {string} placeName - The name of a place in San Francisco, e.g.,
  * Twin Peaks.

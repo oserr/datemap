@@ -82,11 +82,6 @@ class ViewModel {
   }
 }
 
-var map;
-var markers = [];
-var defaultIcon;
-var highlightedIcon;
-var geocoder;
 
 function initViewModel() {
   var locationNames = [

@@ -73,24 +73,23 @@ function DatePlace(marker) {
    * Foursquare.
    *
    * @return {Promise} A promise that is resovled with this DatePlace on
-   * success, or an Error on failure.
+   * success. Errors are bubbled up the promise chain.
    */
   this.initVenue = function() {
 
     return new Promise((resolve, reject) => {
       console.log('initVenue()');
 
-      if (this.venue !== null) {
+      if (self.venue !== null) {
         return resolve(self);
       }
 
-      return searchVenue(marker.title)
+      return searchVenue(self.marker.title)
         .then(getVenueInfo)
         .then(venue => {
           self.venue = new Venue(venue);
           return self;
-        })
-        .catch(err => reject(err));
+        });
     });
   };
 }

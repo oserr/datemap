@@ -364,3 +364,22 @@ function searchVenue(locationName) {
     return response.respones.venues[0];
   });
 }
+
+/**
+ * Uses the Foursquare API to get the information for a given venue.
+ *
+ * @param {Object}  idObj - An object literal containing an id field with the
+ * Foursquare ID for a given venue.
+ * @return {Promise} A promise that resolves with a JSON object with the venue
+ * information from Foursquare.
+ */
+function getVenueInfo(idObj) {
+  return axios.get(`https://api.foursquare.com/v2/venues/${idObj.id}`, {
+    params: {
+      v: 20161016,
+      client_id: CLIENT_ID,
+      client_secret: CLIENT_SECRET
+    }
+  })
+  .then(response => response.response.venue);
+}

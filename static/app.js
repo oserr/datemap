@@ -83,28 +83,26 @@ function DatePlace(marker) {
 }
 
 
-class Venue {
-  constructor(venue) {
-    this.className = 'Venue';
-    this.name = venue.name;
-    this.url = venue.url;
-    this.formattedPhone = venue.contact.formattedPhone;
-    this.formattedAddress = venue.location.formattedAddress;
-    this.rating = venue.rating;
-    this.ratingColor = venue.ratingColor;
-    this.photoLinks = [];
+function Venue(venue) {
+  this.className = 'Venue';
+  this.name = venue.name;
+  this.url = venue.url;
+  this.formattedPhone = venue.contact.formattedPhone;
+  this.formattedAddress = venue.location.formattedAddress;
+  this.rating = venue.rating;
+  this.ratingColor = venue.ratingColor;
+  this.photoLinks = [];
 
-    let total = 0;
-    const totalItems = venue.photos.groups.count;
-    for (let i = 0; i < totalItems && total < MAX_4SQUARE_PICS; ++i) {
-      item = venue.photos.groups.items[i];
-      if (item.visibility === 'public') {
-        this.photoLinks.push({
-          prefix: item.prefix,
-          suffix: item.suffix,
-        });
-        ++total;
-      }
+  let total = 0;
+  const totalItems = venue.photos.groups.count;
+  for (let i = 0; i < totalItems && total < MAX_4SQUARE_PICS; ++i) {
+    item = venue.photos.groups.items[i];
+    if (item.visibility === 'public') {
+      this.photoLinks.push({
+        prefix: item.prefix,
+        suffix: item.suffix,
+      });
+      ++total;
     }
   }
 }

@@ -37,6 +37,15 @@ class Venue {
 
 
 class ViewModel {
+  /**
+   * Initializes multiple pieces of the ViewModel, including the geocoder, a
+   * couple of icons for the Google Maps API markers, a map centered on
+   * cityCenter, and the set of markers corresponding to date locations.
+   *
+   * @param {string} cityCenter - A name of a place to center the map.
+   * @param {Array} locationNames - A list of date places to display on the
+   * map.
+   */
   constructor(cityCenter, locationNames) {
     this.map = null;
     this.datePlaces = [];

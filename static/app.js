@@ -130,7 +130,7 @@ function ViewModel(cityCenter, locationNames) {
   this.geocoder = new google.maps.Geocoder();
   this.defaultIcon = makeMarkerIcon('0091ff');
   this.highlightedIcon = makeMarkerIcon('FFFF24');
-  this.showInfo = ko.observable(false);
+  this.shouldShowInfo = ko.observable(false);
   this.streetViewService = new google.maps.StreetViewService();
 
   let self = this;
@@ -165,15 +165,15 @@ function ViewModel(cityCenter, locationNames) {
    * @param {DatePlace} datePlace - The date place containing the marker, venue,
    * and the street view node.
    */
-  this.setShowInfo = function() {
-    self.showInfo(true);
+  this.showInfo = function() {
+    self.shouldShowInfo(true);
   };
 
   /**
    * Sets the current date place to null.
    */
-  this.removeShowInfo = function() {
-    self.showInfo(false);
+  this.removeInfo = function() {
+    self.shouldShowInfo(false);
   };
 }
 

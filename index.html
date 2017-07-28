@@ -5,15 +5,17 @@
   </head>
   <body>
     <!-- Modal -->
-    <div class="modal hidden" id="modal-info">
-      <div class="modal-content">
+    <div class="modal hidden" id="modal-info" data-bind="if: currentDatePlace">
+      <div class="modal-content" data-bind="with: currentDatePlace">
         <div class="modal-body">
-          <div id="street-view" class="row">
+          <div id="street-view" class="row" data-bind="html: streetViewNode">
           </div>
           <div id="foursquare" class="row">
           </div>
         </div>
-        <button id="close-modal-btn" type="button" class="btn">Close</button>
+        <button data-bind="click: $parent.removeCurrentDatePlace" type="button" class="btn">
+          Close
+        </button>
       </div>
     </div>
 

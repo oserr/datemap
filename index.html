@@ -40,6 +40,10 @@
 
     <script type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+    <script type="application/json">
+      var CLIENT_ID = {{ fs_client_id }};
+      var CLIENT_SECRET = {{ fs_client_secret }};
+    </script>
     <script src="static/app.js"></script>
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key={{ key }}&v=3&callback=initViewModel">

@@ -88,6 +88,13 @@ class ViewModel {
   setCurrentDatePlace(datePlace) {
     this.currentDatePlace(datePlace);
   }
+
+  /**
+   * Sets the current date place to null.
+   */
+  removeCurrentDatePlace() {
+    this.currentDatePlace(null);
+  }
 }
 
 

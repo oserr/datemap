@@ -83,6 +83,12 @@ function DatePlace(marker) {
 }
 
 
+/**
+ * Creates a Venue object cotaining multiple pieces of information about a
+ * venue.
+ * @param {Object} venue - A JSON object response from the Foursquare API
+ * containing information about a venue.
+ */
 function Venue(venue) {
   this.className = 'Venue';
   this.name = venue.name;

@@ -261,49 +261,6 @@ function createDatePlace(locationInfo) {
 
 
 /**
- * Shows a Google Maps street view in a modal window.
- * @param {Marker} marker - The Google Maps Marker reprsenting the location
- * to be seen in a street view.
- */
-function showModal(marker) {
-  console.log('called showModal');
-  var streetViewService = new google.maps.StreetViewService();
-  const radius = 50;
-  var streetViewDiv = $('#street-view');
-  streetViewService.getPanoramaByLocation(
-    marker.position,
-    radius,
-    function(data, status) {
-      if (status === google.maps.StreetViewStatus.OK) {
-        console.log('StreetViewStatus is OK');
-        const nearLocation = data.location.latLng;
-        const heading = google.maps.geometry.spherical.computeHeading(
-          nearLocation,
-          marker.position
-        );
-        const opts = {
-          position: nearLocation,
-          pov: {
-            heading: heading,
-            pitch: 30,
-          }
-        };
-        var modalDiv = $('#modal-info');
-        modalDiv.removeClass('hidden');
-        new google.maps.StreetViewPanorama($('#street-view')[0], opts);
-        centerModal(modalDiv);
-        $(window).on('resize', () => {
-          centerModal(modalDiv);
-        });
-      } else {
-        console.log('Unable to get street view');
-      }
-    }
-  );
-}
-
-
-/**
  * Centers a modal div on a window.
  * @param {jQuery object} modalDiv - The div representing the modal window.
  */

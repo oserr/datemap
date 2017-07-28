@@ -7,6 +7,73 @@ class DatePlace {
     this.streetViewNode = null;
     this.venue = null;
   }
+
+  /**
+   * Initializes the street view, a raw Element node that contains the
+   * HTML/javascript for the panorama street view.
+   *
+   * @param {StreetViewService} streetViewService - A Google Maps API street
+   * view service to convert obtain the panoramic street view of a given
+   * location.
+   * @return {Promise} A promise that is resovled with this DatePlace on
+   * success, or an Error on failure.
+   */
+  initStreetView(streetViewService) {
+    self = this;
+
+    return new Promise((resolve, reject) => {
+      console.log('initStreetView()');
+
+      if (self.streetViewNode !== null) {
+        return resolve(self);
+      }
+
+      streetViewService.getPanoramaByLocation(
+        self.marker.position,
+        50, // radius
+        function(data, status) {
+          if (status === google.maps.StreetViewStatus.OK) {
+            console.log(`panorama is OK for ${self.marker.title}`);
+
+            const heading = google.maps.geometry.spherical.computeHeading(
+              data.location.latLng,
+              self.marker.position
+            );
+
+            const opts = {
+              position: data.location.latLng,
+              pov: {
+                heading: heading,
+                pitch: 30,
+              }
+            };
+
+            // Create the element container for the panorama
+            self.streetViewNode = document.createElement('div');
+            self.streetViewNode.id = 'street-view-node';
+
+            // Attach the panorama in the container
+            new google.maps.StreetViewPanorama(self.streetViewNode, opts);
+
+            // Grab the street view container so we can center it now and again
+            // any time the window size changes.
+            // TODO: move this to view model initializer
+            var modalDiv = $('#modal-info');
+            centerModal(modalDiv);
+            $(window).on('resize', () => {
+              centerModal(modalDiv);
+            });
+
+            return resolve(self);
+          } else {
+            return reject(
+              new Error(`panorama is not OK for ${self.marker.title}`)
+            );
+          }
+        }
+      );
+    }
+  }
 }
 
 

@@ -44,7 +44,6 @@ class ViewModel {
     this.defaultIcon = makeMarkerIcon('0091ff');
     this.highlightedIcon = makeMarkerIcon('FFFF24');
     this.currentDatePlace = ko.observable(null);
-    this.modalIsVisible = ko.computed(() => this.currentDatePlace() !== null);
     this.streetViewService = null;
 
     let self = this;

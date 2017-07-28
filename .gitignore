@@ -6,3 +6,6 @@ google-maps-api-key.txt
 
 # Ignore sample response from foursquare API 
 example-response.js
+
+# Ignore foursquare api id and secret
+foursquare-api.txt

@@ -80,6 +80,18 @@ function DatePlace(marker) {
       );
     });
   };
+
+  /**
+   * Attaches the panorama street view to a container for display.
+   * @return {Promise} The promise should resolve successfully with this
+   * DatePlace.
+   */
+  this.attachStreetView = function() {
+    return new Promise((resolve, reject) => {
+      $('#street-view').append(self.streetViewNode);
+      return resolve(self);
+    });
+  };
 }
 
 
@@ -252,7 +264,8 @@ function createDatePlace(locationInfo) {
 
   marker.addListener('click', function() {
     datePlace.initStreetView(self.streetViewService)
-    .then(() => self.setCurrentDatePlace(datePlace))
+    .then(result => result.attachStreetView())
+    .then(() => self.showInfo())
     .catch(err => reportError(err));
   });
 

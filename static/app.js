@@ -2,6 +2,12 @@ const MAX_4SQUARE_PICS = 5;
 
 
 class DatePlace {
+  /**
+   * Initializes the object with a Google Maps API Marker.
+   *
+   * @param {Marker} marker - A Google Maps API marker that contains the
+   * latitude and longitude coordinates of a given place.
+   */
   constructor(marker) {
     this.marker = marker;
     this.streetViewNode = null;

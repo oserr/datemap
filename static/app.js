@@ -111,7 +111,7 @@ class Venue {
 }
 
 
-class ViewModel {
+function ViewModel(cityCenter, locationNames) {
   /**
    * Initializes multiple pieces of the ViewModel, including the geocoder, a
    * couple of icons for the Google Maps API markers, a map centered on
@@ -121,59 +121,57 @@ class ViewModel {
    * @param {Array} locationNames - A list of date places to display on the
    * map.
    */
-  constructor(cityCenter, locationNames) {
-    this.className = 'ViewModel';
-    this.map = null;
-    this.datePlaces = [];
-    this.geocoder = new google.maps.Geocoder();
-    this.defaultIcon = makeMarkerIcon('0091ff');
-    this.highlightedIcon = makeMarkerIcon('FFFF24');
-    this.currentDatePlace = ko.observable(null);
-    this.streetViewService = new google.maps.StreetViewService();
+  this.className = 'ViewModel';
+  this.map = null;
+  this.datePlaces = [];
+  this.geocoder = new google.maps.Geocoder();
+  this.defaultIcon = makeMarkerIcon('0091ff');
+  this.highlightedIcon = makeMarkerIcon('FFFF24');
+  this.currentDatePlace = ko.observable(null);
+  this.streetViewService = new google.maps.StreetViewService();
 
-    let self = this;
+  let self = this;
 
-    geocodePlaceName(cityCenter, self.geocoder)
-    .then(locationInfo => {
-      self.map = new google.maps.Map(document.getElementById('map'), {
-        center: locationInfo.location,
-        zoom: 13,
-      });
-    })
-    .then(() => {
-      return locationNames.reduce((seq, locationName) => {
-        return seq.then(() => geocodePlaceName(locationName, self.geocoder))
-        .then(createDatePlace.bind(self))
-        .then(datePlace => self.datePlaces.push(datePlace))
-        .catch(err => reportError(err));
-      }, Promise.resolve());
-    })
-    .then(() => {
-      const bounds = new google.maps.LatLngBounds();
-      self.datePlaces.forEach(datePlace => {
-        datePlace.marker.setMap(self.map);
-        bounds.extend(datePlace.marker.position);
-      });
-      self.map.fitBounds(bounds);
-    })
-    .catch(err => reportError(err));
-  }
+  geocodePlaceName(cityCenter, self.geocoder)
+  .then(locationInfo => {
+    self.map = new google.maps.Map(document.getElementById('map'), {
+      center: locationInfo.location,
+      zoom: 13,
+    });
+  })
+  .then(() => {
+    return locationNames.reduce((seq, locationName) => {
+      return seq.then(() => geocodePlaceName(locationName, self.geocoder))
+      .then(createDatePlace.bind(self))
+      .then(datePlace => self.datePlaces.push(datePlace))
+      .catch(err => reportError(err));
+    }, Promise.resolve());
+  })
+  .then(() => {
+    const bounds = new google.maps.LatLngBounds();
+    self.datePlaces.forEach(datePlace => {
+      datePlace.marker.setMap(self.map);
+      bounds.extend(datePlace.marker.position);
+    });
+    self.map.fitBounds(bounds);
+  })
+  .catch(err => reportError(err));
 
   /**
    * Sets the current date place when a user clicks on a marker.
    * @param {DatePlace} datePlace - The date place containing the marker, venue,
    * and the street view node.
    */
-  setCurrentDatePlace(datePlace) {
-    this.currentDatePlace(datePlace);
-  }
+  this.setCurrentDatePlace = function(datePlace) {
+    self.currentDatePlace(datePlace);
+  };
 
   /**
    * Sets the current date place to null.
    */
-  removeCurrentDatePlace() {
-    this.currentDatePlace(null);
-  }
+  this.removeCurrentDatePlace = function() {
+    self.currentDatePlace(null);
+  };
 }
 
 

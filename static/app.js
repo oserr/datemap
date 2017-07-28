@@ -67,6 +67,32 @@ function DatePlace(marker) {
       );
     });
   };
+
+  /**
+   * Initializes the Venue, an object with information about a venue from
+   * Foursquare.
+   *
+   * @return {Promise} A promise that is resovled with this DatePlace on
+   * success, or an Error on failure.
+   */
+  this.initVenue = function() {
+
+    return new Promise((resolve, reject) => {
+      console.log('initVenue()');
+
+      if (this.venue !== null) {
+        return resolve(self);
+      }
+
+      return searchVenue(marker.title)
+        .then(getVenueInfo)
+        .then(venue => {
+          self.venue = new Venue(venue);
+          return self;
+        })
+        .catch(err => reject(err));
+    });
+  };
 }
 
 

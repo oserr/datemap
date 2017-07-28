@@ -5,7 +5,7 @@
   </head>
   <body>
     <!-- Modal -->
-    <div class="modal" id="modal-info" data-bind="if: currentDatePlace">
+    <div class="modal" id="modal-info" data-bind="visible: currentDatePlace, if: currentDatePlace">
       <div class="modal-content" data-bind="with: currentDatePlace">
         <div id="street-view" data-bind="html: streetViewNode">
         </div>

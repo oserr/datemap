@@ -20,6 +20,7 @@ for line in fs:
     key_value = line.split('=')
     if len(key_value) != 2:
         app_err('line does not contain key=value pair')
+    key_value = [x.strip() for x in key_value]
     k, v = key_value
     if not k:
         app_err('Line does not contain key, but expecting key=value pairs')

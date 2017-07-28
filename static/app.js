@@ -1,19 +1,19 @@
 const MAX_4SQUARE_PICS = 5;
 
 
-class DatePlace {
+function DatePlace(marker) {
   /**
    * Initializes the object with a Google Maps API Marker.
    *
    * @param {Marker} marker - A Google Maps API marker that contains the
    * latitude and longitude coordinates of a given place.
    */
-  constructor(marker) {
-    this.className = 'DatePlace';
-    this.marker = marker;
-    this.streetViewNode = null;
-    this.venue = null;
-  }
+  this.className = 'DatePlace';
+  this.marker = marker;
+  this.streetViewNode = null;
+  this.venue = null;
+
+  let self = this;
 
   /**
    * Initializes the street view, a raw Element node that contains the
@@ -25,8 +25,7 @@ class DatePlace {
    * @return {Promise} A promise that is resovled with this DatePlace on
    * success, or an Error on failure.
    */
-  initStreetView(streetViewService) {
-    self = this;
+  this.initStreetView = function(streetViewService) {
 
     return new Promise((resolve, reject) => {
       console.log('initStreetView()');
@@ -80,7 +79,7 @@ class DatePlace {
         }
       );
     });
-  }
+  };
 }
 
 

@@ -144,6 +144,7 @@ function ViewModel(cityCenter, locationNames) {
   this.highlightedIcon = makeMarkerIcon('FFFF24');
   this.shouldShowInfo = ko.observable(false);
   this.streetViewService = new google.maps.StreetViewService();
+  this.selectedDatePlace = ko.observable(null);
 
   let self = this;
 
@@ -179,8 +180,9 @@ function ViewModel(cityCenter, locationNames) {
   /**
    * Displays the street view and date place information for a date place.
    */
-  this.showInfo = function() {
+  this.showInfo = function(datePlace) {
     self.shouldShowInfo(true);
+    self.selectedDatePlace(datePlace);
   };
 
   /**
@@ -188,6 +190,7 @@ function ViewModel(cityCenter, locationNames) {
    */
   this.removeInfo = function() {
     self.shouldShowInfo(false);
+    self.selectedDatePlace(null);
     $('#street-view').empty();
   };
 }
@@ -268,7 +271,7 @@ function createDatePlace(locationInfo) {
   let datePlace = new DatePlace(marker);
 
   marker.addListener('click', function() {
-    self.showInfo();
+    self.showInfo(datePlace);
     datePlace.initStreetView(self.streetViewService)
     .catch(err => reportError(err));
   });

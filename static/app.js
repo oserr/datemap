@@ -252,8 +252,12 @@ function createDatePlace(locationInfo) {
     animation: google.maps.Animation.DROP,
   });
 
+  let datePlace = new DatePlace(marker);
+
   marker.addListener('click', function() {
-    showModal(this);
+    datePlace.initStreetView(self.streetViewService)
+    .then(() => self.setCurrentDatePlace(datePlace))
+    .catch(err => reportError(err));
   });
 
   marker.addListener('mouseover', function() {
@@ -264,7 +268,7 @@ function createDatePlace(locationInfo) {
     this.setIcon(self.defaultIcon);
   });
 
-  return new DatePlace(marker);
+  return datePlace;
 }
 
 

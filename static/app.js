@@ -161,16 +161,14 @@ function ViewModel(cityCenter, locationNames) {
   .catch(err => reportError(err));
 
   /**
-   * Sets the current date place when a user clicks on a marker.
-   * @param {DatePlace} datePlace - The date place containing the marker, venue,
-   * and the street view node.
+   * Displays the street view and date place information for a date place.
    */
   this.showInfo = function() {
     self.shouldShowInfo(true);
   };
 
   /**
-   * Sets the current date place to null.
+   * Hides the window with the street view and information for a date place.
    */
   this.removeInfo = function() {
     self.shouldShowInfo(false);

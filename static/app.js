@@ -10,7 +10,6 @@ function DatePlace(marker) {
    */
   this.className = 'DatePlace';
   this.marker = marker;
-  this.streetViewNode = null;
   this.venue = null;
 
   let self = this;
@@ -29,10 +28,6 @@ function DatePlace(marker) {
 
     return new Promise((resolve, reject) => {
       console.log('initStreetView()');
-
-      if (self.streetViewNode !== null) {
-        return resolve(self);
-      }
 
       streetViewService.getPanoramaByLocation(
         self.marker.position,
@@ -54,23 +49,15 @@ function DatePlace(marker) {
               }
             };
 
-            // Create the element container for the panorama
-            self.streetViewNode = document.createElement('div');
-            self.streetViewNode.id = 'street-view-node';
+            // Clean street-view container before attaching street view
+            const streetViewDiv = $('#street-view');
+            streetViewDiv.empty();
 
-            // Attach the panorama in the container
-            new google.maps.StreetViewPanorama(self.streetViewNode, opts);
-
-            // Grab the street view container so we can center it now and again
-            // any time the window size changes.
-            // TODO: move this to view model initializer
-            var modalDiv = $('#modal-info');
-            centerModal(modalDiv);
-            $(window).on('resize', () => {
-              centerModal(modalDiv);
-            });
-
+            // Attach the panorama in the container and center it in viewport
+            new google.maps.StreetViewPanorama(streetViewDiv[0], opts);
+            centerModal($('#modal-info'));
             return resolve(self);
+
           } else {
             return reject(
               new Error(`panorama is not OK for ${self.marker.title}`)
@@ -78,18 +65,6 @@ function DatePlace(marker) {
           }
         }
       );
-    });
-  };
-
-  /**
-   * Attaches the panorama street view to a container for display.
-   * @return {Promise} The promise should resolve successfully with this
-   * DatePlace.
-   */
-  this.attachStreetView = function() {
-    return new Promise((resolve, reject) => {
-      $('#street-view').append(self.streetViewNode);
-      return resolve(self);
     });
   };
 }
@@ -172,6 +147,10 @@ function ViewModel(cityCenter, locationNames) {
   })
   .catch(err => reportError(err));
 
+  $(window).on('resize', () => {
+    centerModal($('#modal-info'));
+  });
+
   /**
    * Displays the street view and date place information for a date place.
    */
@@ -184,6 +163,7 @@ function ViewModel(cityCenter, locationNames) {
    */
   this.removeInfo = function() {
     self.shouldShowInfo(false);
+    $('#street-view').empty();
   };
 }
 
@@ -263,9 +243,8 @@ function createDatePlace(locationInfo) {
   let datePlace = new DatePlace(marker);
 
   marker.addListener('click', function() {
+    self.showInfo();
     datePlace.initStreetView(self.streetViewService)
-    .then(result => result.attachStreetView())
-    .then(() => self.showInfo())
     .catch(err => reportError(err));
   });
 

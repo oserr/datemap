@@ -79,6 +79,15 @@ class ViewModel {
       modal.addClass('hidden');
     });
   }
+
+  /**
+   * Sets the current date place when a user clicks on a marker.
+   * @param {DatePlace} datePlace - The date place containing the marker, venue,
+   * and the street view node.
+   */
+  setCurrentDatePlace(datePlace) {
+    this.currentDatePlace(datePlace);
+  }
 }
 
 

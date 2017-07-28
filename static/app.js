@@ -335,3 +335,32 @@ function makeMarkerIcon(markerColor) {
     new google.maps.Size(21, 34)
   );
 }
+
+/**
+ * Uses the Foursquare API to search for a venue.
+ *
+ * @param {String} locationName - the name of the location, which should omit
+ * the name of the city, because it uses San Francisco by default.
+ * @return {Promise} Upon success, it returns a promise that resolves with a
+ * JSON object containing the first search result. On failure, it rejects with
+ * an Error.
+ */
+function searchVenue(locationName) {
+  return axios.get('https://api.foursquare.com/v2/venues/search', {
+    params: {
+      v: 20161016,
+      near: 'San Francisco, CA'
+      query: locationName,
+      limit: 1,
+      intent: 'match',
+      client_id: CLIENT_ID,
+      client_secret: CLIENT_SECRET
+    }
+  })
+  .then(response => {
+    if (!response.response.venues || !response.response.venues.length) {
+      return Promise.reject(new Error('Search did not yield any venues'));
+    }
+    return response.respones.venues[0];
+  });
+}

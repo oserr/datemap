@@ -273,6 +273,7 @@ function createDatePlace(locationInfo) {
   marker.addListener('click', function() {
     self.showInfo(datePlace);
     datePlace.initStreetView(self.streetViewService)
+    .then(dp => dp.initVenue())
     .catch(err => reportError(err));
   });
 

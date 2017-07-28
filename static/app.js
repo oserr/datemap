@@ -352,7 +352,7 @@ function searchVenue(locationName) {
   return axios.get('https://api.foursquare.com/v2/venues/search', {
     params: {
       v: 20161016,
-      near: 'San Francisco, CA'
+      near: 'San Francisco, CA',
       query: locationName,
       limit: 1,
       intent: 'match',

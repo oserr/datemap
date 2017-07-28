@@ -9,6 +9,7 @@ class DatePlace {
    * latitude and longitude coordinates of a given place.
    */
   constructor(marker) {
+    this.className = 'DatePlace';
     this.marker = marker;
     this.streetViewNode = null;
     this.venue = null;
@@ -78,13 +79,14 @@ class DatePlace {
           }
         }
       );
-    }
+    });
   }
 }
 
 
 class Venue {
   constructor(venue) {
+    this.className = 'Venue';
     this.name = venue.name;
     this.url = venue.url;
     this.formattedPhone = venue.contact.formattedPhone;
@@ -120,13 +122,14 @@ class ViewModel {
    * map.
    */
   constructor(cityCenter, locationNames) {
+    this.className = 'ViewModel';
     this.map = null;
     this.datePlaces = [];
     this.geocoder = new google.maps.Geocoder();
     this.defaultIcon = makeMarkerIcon('0091ff');
     this.highlightedIcon = makeMarkerIcon('FFFF24');
     this.currentDatePlace = ko.observable(null);
-    this.streetViewService = null;
+    this.streetViewService = new google.maps.StreetViewService();
 
     let self = this;
 
@@ -154,12 +157,6 @@ class ViewModel {
       self.map.fitBounds(bounds);
     })
     .catch(err => reportError(err));
-
-    $('#close-modal-btn').on('click', () => {
-      $('#street-view').empty();
-      modal = $('#modal-info');
-      modal.addClass('hidden');
-    });
   }
 
   /**

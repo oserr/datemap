@@ -63,7 +63,22 @@ html, body {
   width: 50%;
 }
 
-#venue-pic {
+#venue-pics-container {
   height: 100%;
   width: 100%;
+}
+
+#venue-pic {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+#photo-buttons {
+  height: 15%;
+  width: auto;
+}
+
+button {
+  max-height: 100%;
+  max-width: 100%;
 }

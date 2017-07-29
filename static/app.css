@@ -59,7 +59,11 @@ html, body {
 }
 
 #venue-pics {
-  background: blue;
-  color: white;
+  height: 100%;
   width: 50%;
+}
+
+#venue-pic {
+  height: 100%;
+  width: 100%;
 }

@@ -266,6 +266,14 @@ function ViewModel(cityCenter, locationNames) {
     self.selectedDatePlace(null);
     $('#street-view').empty();
   };
+
+  /**
+   * Triggers the click event on the marker for a given DatePlace.
+   * @param {DatePlace} datePlace - The date place selected by a user.
+   */
+  this.triggerClickOnMarker = function(datePlace) {
+    google.maps.event.trigger(datePlace.marker, 'click');
+  };
 }
 
 

@@ -9,8 +9,8 @@
       <div class="modal-content" data-bind="with: selectedDatePlace()">
         <div id="street-view">
         </div>
-        <div id="foursquare" data-bind="with: venue">
-          <div id="venue-info">
+        <div id="foursquare" data-bind="if: venue">
+          <div id="venue-info" data-bind="with: venue()">
             <h2 id="venue-name" data-bind="text: name"></h2>
             <p id="venue-phone" data-bind="text: formattedPhone"></p>
             <p id="venue-rating" data-bind="text: rating"></p>

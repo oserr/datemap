@@ -171,6 +171,16 @@ function Venue(venue) {
       self.selectedPhotoIndex(index);
     }
   };
+
+  /**
+   * Rewinds the selected photo to the first photo in photoLinks.
+   */
+  this.rewindPhotos() = function() {
+    if (self.hasPreviousPhoto()) {
+      self.selectedPhoto(self.photoLinks[0]);
+      self.selectedPhotoIndex(0);
+    }
+  };
 }
 
 
@@ -324,6 +334,7 @@ function createDatePlace(locationInfo) {
     self.showInfo(datePlace);
     datePlace.initStreetView(self.streetViewService)
     .then(dp => dp.initVenue())
+    .then(dp => dp.rewindPhotos())
     .catch(err => reportError(err));
   });
 

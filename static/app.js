@@ -307,9 +307,7 @@ function centerModal(modalDiv) {
   const jqWindow = $(window);
 
   const windowHeight = jqWindow.height();
-  console.log(`computed wHeight=${windowHeight} in pixels`);
   const windowWidth = jqWindow.width();
-  console.log(`computed wWidth=${windowWidth} in pixels`);
   const modalHeight = windowHeight * .7;
   const modalWidth = windowWidth * .7;
 

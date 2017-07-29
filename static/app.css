@@ -41,12 +41,25 @@ html, body {
   width: 100%;
 }
 
-#venue-info {
-  background: white;
-  color: black;
-}
-
 #street-view, #foursquare {
   height: 50%;
   width: auto;
+}
+
+#foursquare {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#venue-info {
+  background: white;
+  color: black;
+  width: 50%;
+}
+
+#venue-pics {
+  background: blue;
+  color: white;
+  width: 50%;
 }

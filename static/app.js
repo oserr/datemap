@@ -110,18 +110,25 @@ function Venue(venue) {
   this.formattedAddress = venue.location.formattedAddress || UNKNOWN_OR_NA;
   this.rating = venue.rating || UNKNOWN_OR_NA;
   this.photoLinks = [];
+  this.selectedPhoto = ko.observable(null);
+  this.selectedPhotoIndex = null;
 
-  let total = 0;
+  // Search for at most MAX_4SQUARE_PICS photos and build the links for them.
+  // The current Foursquare API requires that a size be wedged between the
+  // prefix and suffix of the URL, e.g., XXxYY, original, capXX, etc.
   const totalItems = venue.photos.groups[0].count;
-  for (let i = 0; i < totalItems && total < MAX_4SQUARE_PICS; ++i) {
+  for (let i = 0; i < totalItems &&
+       this.photoLinks.length < MAX_4SQUARE_PICS; ++i) {
     item = venue.photos.groups[0].items[i];
     if (item.visibility === 'public') {
-      this.photoLinks.push({
-        prefix: item.prefix,
-        suffix: item.suffix,
-      });
-      ++total;
+      this.photoLinks.push(`${item.prefix}original${item.suffix}`);
     }
+  }
+
+  // If we find photos, then select the first one to display on window
+  if (this.photoLinks.length) {
+    this.selectedPhoto(this.photoLinks[0]);
+    this.selectedPhotoIndex = 0;
   }
 }
 

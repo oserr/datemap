@@ -22,8 +22,18 @@
               </div>
             </div>
           </div>
-          <div id="venue-pics" data-bind="with: venue()">
-            <img id="venue-pic" data-bind="attr: { src: selectedPhoto }">
+          <div id="venue-pics" data-bind="if: venue().photoLinks.length">
+            <div id="venue-pics-container" data-bind="with: venue()">
+              <img id="venue-pic" data-bind="attr: { src: selectedPhoto }">
+              <div id="photo-buttons">
+                <button type="button" data-bind="if: hasNextPhoto(), click: getNextPhoto">
+                  Next
+                </button>
+                <button type="button" data-bind="if: hasPreviousPhoto(), click: getPreviousPhoto">
+                  Previous
+                </button>
+              </div>
+            </div>
           </div>
         </div>
         <button data-bind="click: $root.removeInfo" type="button">

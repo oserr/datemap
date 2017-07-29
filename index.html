@@ -48,7 +48,8 @@
         <input type="text" name="filter-text" placeholder="Filter date location">
         <button type="button" name="filter-btn">Filter</button>
         <div class="date-locations-list" data-bind="foreach: datePlaces">
-          <p class="date-location-name" data-bind="text: marker.getTitle()"></p>
+          <p class="date-location-name"
+            data-bind="text: marker.getTitle(), event: {mouseover: doMouseOver, mouseout: doMouseOut}"></p>
         </div>
       </div>
       <div id="map"></div>

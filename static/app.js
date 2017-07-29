@@ -93,6 +93,20 @@ function DatePlace(marker) {
         });
     });
   };
+
+  /**
+   * Highlights the marker icon.
+   */
+  this.doMouseOver = function() {
+    google.maps.event.trigger(self.marker, 'mouseover');
+  };
+
+  /**
+   * Sets the marker icon to the default marker icon.
+   */
+  this.doMouseOut = function() {
+    google.maps.event.trigger(self.marker, 'mouseout');
+  };
 }
 
 

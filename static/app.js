@@ -356,7 +356,7 @@ function createDatePlace(locationInfo) {
     self.showInfo(datePlace);
     datePlace.initStreetView(self.streetViewService)
     .then(dp => dp.initVenue())
-    .then(dp => dp.rewindPhotos())
+    .then(dp => dp.venue().rewindPhotos())
     .catch(err => reportError(err));
   });
 

@@ -10,7 +10,7 @@ function DatePlace(marker) {
    */
   this.className = 'DatePlace';
   this.marker = marker;
-  this.venue = null;
+  this.venue = ko.observable(null);
 
   let self = this;
 
@@ -80,14 +80,14 @@ function DatePlace(marker) {
     return new Promise((resolve, reject) => {
       console.log('initVenue()');
 
-      if (self.venue !== null) {
+      if (self.venue() !== null) {
         return resolve(self);
       }
 
-      return searchVenue(self.marker.title)
+      return searchVenue(self.marker.getTitle())
         .then(getVenueInfo)
         .then(venue => {
-          self.venue = new Venue(venue);
+          self.venue(new Venue(venue));
           return self;
         });
     });
@@ -112,9 +112,9 @@ function Venue(venue) {
   this.photoLinks = [];
 
   let total = 0;
-  const totalItems = venue.photos.groups.count;
+  const totalItems = venue.photos.groups[0].count;
   for (let i = 0; i < totalItems && total < MAX_4SQUARE_PICS; ++i) {
-    item = venue.photos.groups.items[i];
+    item = venue.photos.groups[0].items[i];
     if (item.visibility === 'public') {
       this.photoLinks.push({
         prefix: item.prefix,
@@ -210,10 +210,11 @@ function reportError(err) {
 function initViewModel() {
   var locationNames = [
     'Choux Bakery', 'Top of the Mark', 'Nob Hill Spa',
-    'Telegraph Hill, Filbert Stairs', 'B. Patisserie',
+    'B. Patisserie','Palace of Fine Arts',
+    'Press Club', 'Saison',
     'Mason Pacific', 'Shakespeare Garden', 'Golden Gate Bridge',
     /*
-    'Palace of Fine Arts', 'Press Club', 'Saison',
+     Telegraph Hill, Filbert Stairs',
     'Exploratorium', 'Stow Lake', 'Crissy Field', 'Waterbar'
     */
   ]
@@ -313,18 +314,6 @@ function centerModal(modalDiv) {
     left: left + jqWindow.scrollLeft(),
     height: modalHeight,
     width: modalWidth,
-    padding: 20,
-    background: 'black'
-  });
-
-  $('#street-view').css({
-    height: modalHeight * .5,
-    width: 'auto',
-  });
-
-  $('#foursquare').css({
-    height: modalHeight * .5,
-    width: 'auto',
   });
 }
 
@@ -349,22 +338,24 @@ function makeMarkerIcon(markerColor) {
  * an Error.
  */
 function searchVenue(locationName) {
+  console.log('searchVenue with locationName=' + locationName);
   return axios.get('https://api.foursquare.com/v2/venues/search', {
     params: {
       v: 20161016,
       near: 'San Francisco, CA',
       query: locationName,
       limit: 1,
-      intent: 'match',
       client_id: CLIENT_ID,
       client_secret: CLIENT_SECRET
     }
   })
   .then(response => {
-    if (!response.response.venues || !response.response.venues.length) {
+    const data = response.data;
+    //console.log(JSON.stringify(response.data));
+    if (!data.response.venues || !data.response.venues.length) {
       return Promise.reject(new Error('Search did not yield any venues'));
     }
-    return response.respones.venues[0];
+    return data.response.venues[0];
   });
 }
 
@@ -384,5 +375,5 @@ function getVenueInfo(idObj) {
       client_secret: CLIENT_SECRET
     }
   })
-  .then(response => response.response.venue);
+  .then(response => response.data.response.venue);
 }

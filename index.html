@@ -45,7 +45,7 @@
     <div class="container">
       <div class="options-box">
         <h1>Go on your next Date!</h1>
-        <input type="text" name="filter-text" placeholder="Filter date location">
+        <input data-bind="textInput: searchText" placeholder="Filter date location">
         <button type="button" name="filter-btn">Filter</button>
         <div class="date-locations-list" data-bind="foreach: datePlaces">
           <p class="date-location-name"

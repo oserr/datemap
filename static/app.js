@@ -217,6 +217,7 @@ function ViewModel(cityCenter, locationNames) {
   this.shouldShowInfo = ko.observable(false);
   this.streetViewService = new google.maps.StreetViewService();
   this.selectedDatePlace = ko.observable(null);
+  this.searchText = ko.observable('');
 
   let self = this;
 
@@ -274,6 +275,14 @@ function ViewModel(cityCenter, locationNames) {
   this.triggerClickOnMarker = function(datePlace) {
     google.maps.event.trigger(datePlace.marker, 'click');
   };
+
+  /**
+   * Apply a search function to changes on searchText.
+   */
+  this.searchText.subscribe(textValue => {
+    const arr = self.datePlaces();
+    arr.forEach(datePlace => datePlace.applySearch(textValue));
+  });
 }
 
 

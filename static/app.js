@@ -1,4 +1,5 @@
 const MAX_4SQUARE_PICS = 5;
+const UNKNOWN_OR_NA = 'Unknown or n/a';
 
 
 function DatePlace(marker) {
@@ -104,11 +105,10 @@ function DatePlace(marker) {
 function Venue(venue) {
   this.className = 'Venue';
   this.name = venue.name;
-  this.url = venue.url;
-  this.formattedPhone = venue.contact.formattedPhone;
-  this.formattedAddress = venue.location.formattedAddress;
-  this.rating = venue.rating;
-  this.ratingColor = venue.ratingColor;
+  this.url = venue.url || UNKNOWN_OR_NA;
+  this.formattedPhone = venue.contact.formattedPhone || UNKNOWN_OR_NA;
+  this.formattedAddress = venue.location.formattedAddress || UNKNOWN_OR_NA;
+  this.rating = venue.rating || UNKNOWN_OR_NA;
   this.photoLinks = [];
 
   let total = 0;

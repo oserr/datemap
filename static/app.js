@@ -186,7 +186,7 @@ function ViewModel(cityCenter, locationNames) {
    */
   this.className = 'ViewModel';
   this.map = null;
-  this.datePlaces = [];
+  this.datePlaces = ko.observableArray([]);
   this.geocoder = new google.maps.Geocoder();
   this.defaultIcon = makeMarkerIcon('0091ff');
   this.highlightedIcon = makeMarkerIcon('FFFF24');
@@ -213,7 +213,8 @@ function ViewModel(cityCenter, locationNames) {
   })
   .then(() => {
     const bounds = new google.maps.LatLngBounds();
-    self.datePlaces.forEach(datePlace => {
+    const arr = self.datePlaces();
+    arr.forEach(datePlace => {
       datePlace.marker.setMap(self.map);
       bounds.extend(datePlace.marker.position);
     });

@@ -175,7 +175,7 @@ function Venue(venue) {
   /**
    * Rewinds the selected photo to the first photo in photoLinks.
    */
-  this.rewindPhotos() = function() {
+  this.rewindPhotos = function() {
     if (self.hasPreviousPhoto()) {
       self.selectedPhoto(self.photoLinks[0]);
       self.selectedPhotoIndex(0);

@@ -26,10 +26,10 @@
             <div id="venue-pics-container" data-bind="with: venue()">
               <img id="venue-pic" data-bind="attr: { src: selectedPhoto }">
               <div id="photo-buttons">
-                <button type="button" data-bind="if: hasNextPhoto(), click: getNextPhoto">
+                <button type="button" data-bind="visible: hasNextPhoto(), click: getNextPhoto">
                   Next
                 </button>
-                <button type="button" data-bind="if: hasPreviousPhoto(), click: getPreviousPhoto">
+                <button type="button" data-bind="visible: hasPreviousPhoto(), click: getPreviousPhoto">
                   Previous
                 </button>
               </div>
@@ -48,7 +48,7 @@
         <input type="text" name="filter-text" placeholder="Filter date location">
         <button type="button" name="filter-btn">Filter</button>
         <div class="date-locations-list" data-bind="foreach: datePlaces">
-          <p class="date-location-name" data-bind="text: marker.title"></p>
+          <p class="date-location-name" data-bind="text: marker.getTitle()"></p>
         </div>
       </div>
       <div id="map"></div>

@@ -111,7 +111,7 @@ function Venue(venue) {
   this.rating = venue.rating || UNKNOWN_OR_NA;
   this.photoLinks = [];
   this.selectedPhoto = ko.observable(null);
-  this.selectedPhotoIndex = null;
+  this.selectedPhotoIndex = ko.observable(null);
 
   // Search for at most MAX_4SQUARE_PICS photos and build the links for them.
   // The current Foursquare API requires that a size be wedged between the
@@ -128,8 +128,49 @@ function Venue(venue) {
   // If we find photos, then select the first one to display on window
   if (this.photoLinks.length) {
     this.selectedPhoto(this.photoLinks[0]);
-    this.selectedPhotoIndex = 0;
+    this.selectedPhotoIndex(0);
   }
+
+  let self = this;
+
+  /**
+   * Checks if there are more pictures for a user to see.
+   */
+  this.hasNextPhoto = function() {
+    const index = self.selectedPhotoIndex();
+    return index !== null && index < self.photoLinks.length - 1;
+  };
+
+
+  /**
+   * Updates the current photo to the next photo in the list.
+   */
+  this.getNextPhoto = function() {
+    if (self.hasNextPhoto()) {
+      let index = self.selectedPhotoIndex() + 1;
+      self.selectedPhoto(self.photoLinks[index]);
+      self.selectedPhotoIndex(index);
+    }
+  };
+
+  /**
+   * Checks if there are previous pictures for a user to see.
+   */
+  this.hasPreviousPhoto = function() {
+    const index = self.selectedPhotoIndex();
+    return index !== null && index > 0;
+  };
+
+  /**
+   * Updates the current photo to the previous photo in the list.
+   */
+  this.getPreviousPhoto = function() {
+    if (self.hasPreviousPhoto()) {
+      let index = self.selectedPhotoIndex() - 1;
+      self.selectedPhoto(self.photoLinks[index]);
+      self.selectedPhotoIndex(index);
+    }
+  };
 }
 
 

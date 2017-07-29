@@ -32,8 +32,21 @@ html, body {
 .modal {
   position: absolute;
   z-index: 10000;
+  background: black;
+  padding: 20px;
 }
 
-.hidden {
-  display: none;
+.modal-content {
+  height: 100%;
+  width: 100%;
+}
+
+#venue-info {
+  background: white;
+  color: black;
+}
+
+#street-view, #foursquare {
+  height: 50%;
+  width: auto;
 }

@@ -46,7 +46,7 @@
       <div class="options-box">
         <h1>Go on your next Date!</h1>
         <input data-bind="textInput: searchText" placeholder="Filter date location">
-        <button type="button" name="filter-btn">Filter</button>
+        <button type="button" data-bind="click: clearSearch">Clear</button>
         <div class="date-locations-list" data-bind="foreach: datePlaces">
           <p class="date-location-name"
             data-bind="text: marker.getTitle(), event: {mouseover: doMouseOver, mouseout: doMouseOut}, click: $root.triggerClickOnMarker, visible: isVisible"></p>

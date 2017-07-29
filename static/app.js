@@ -301,6 +301,15 @@ function ViewModel(cityCenter, locationNames) {
     const arr = self.datePlaces();
     arr.forEach(datePlace => datePlace.applySearch(textValue));
   });
+
+  /**
+   * Clears the searchText.
+   */
+  this.clearSearch = function() {
+    if (self.searchText().length) {
+      self.searchText('');
+    }
+  };
 }
 
 

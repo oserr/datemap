@@ -13,11 +13,6 @@ html, body {
   right: 0px;
 }
 
-#pano {
-  width: 200px;
-  height: 200px;
-}
-
 .options-box {
   background: #fff;
   border: 1px solid #999;
@@ -76,9 +71,4 @@ html, body {
 #photo-buttons {
   height: 15%;
   width: auto;
-}
-
-button {
-  max-height: 100%;
-  max-width: 100%;
 }

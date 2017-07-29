@@ -12,6 +12,8 @@ function DatePlace(marker) {
   this.className = 'DatePlace';
   this.marker = marker;
   this.venue = ko.observable(null);
+  this.isVisible = ko.observable(true);
+  this.map = null;
 
   let self = this;
 
@@ -106,6 +108,21 @@ function DatePlace(marker) {
    */
   this.doMouseOut = function() {
     google.maps.event.trigger(self.marker, 'mouseout');
+  };
+
+  /**
+   * Sets the marker icon to the default marker icon.
+   */
+  this.applySearch = function(text) {
+    text = text.trim().toLowerCase();
+    if (text === ''
+      || self.marker.getTitle().toLowerCase().includes(text))  {
+      self.marker.setMap(self.map);
+      self.isVisible(true);
+    } else {
+      self.marker.setMap(null);
+      self.isVisible(false);
+    }
   };
 }
 
@@ -240,6 +257,7 @@ function ViewModel(cityCenter, locationNames) {
     const bounds = new google.maps.LatLngBounds();
     const arr = self.datePlaces();
     arr.forEach(datePlace => {
+      datePlace.map = self.map;
       datePlace.marker.setMap(self.map);
       bounds.extend(datePlace.marker.position);
     });

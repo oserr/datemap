@@ -49,7 +49,7 @@
         <button type="button" name="filter-btn">Filter</button>
         <div class="date-locations-list" data-bind="foreach: datePlaces">
           <p class="date-location-name"
-            data-bind="text: marker.getTitle(), event: {mouseover: doMouseOver, mouseout: doMouseOut}, click: $root.triggerClickOnMarker"></p>
+            data-bind="text: marker.getTitle(), event: {mouseover: doMouseOver, mouseout: doMouseOut}, click: $root.triggerClickOnMarker, visible: isVisible"></p>
         </div>
       </div>
       <div id="map"></div>

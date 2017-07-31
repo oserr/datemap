@@ -14,6 +14,7 @@ function DatePlace(marker) {
   this.venue = ko.observable(null);
   this.isVisible = ko.observable(true);
   this.map = null;
+  this.isSelected = ko.observable(false);
 
   let self = this;
 
@@ -268,7 +269,12 @@ function ViewModel(cityCenter, locationNames) {
    */
   this.showInfo = function(datePlace) {
     self.shouldShowInfo(true);
+    dp = self.selectedDatePlace();
+    if (dp != null) {
+      dp.isSelected(false);
+    }
     self.selectedDatePlace(datePlace);
+    datePlace.isSelected(true);
   };
 
   /**
@@ -276,6 +282,7 @@ function ViewModel(cityCenter, locationNames) {
    */
   this.removeInfo = function() {
     self.shouldShowInfo(false);
+    self.selectedDatePlace().isSelected(false);
     self.selectedDatePlace(null);
     $('#street-view').empty();
   };

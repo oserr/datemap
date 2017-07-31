@@ -11,18 +11,16 @@
     <style>
       #map {
         min-height: 400px;
-        height: 100%;
       }
 
       #street-view {
-        height: auto;
-        min-height: 200px;
-        min-width: 200px;
+        height: 300px;
+        width: 300px;
       }
 
       img {
-        min-height: 200px;
-        min-width: 200px;
+        max-height: 300px;
+        max-width: 300px;
       }
     </style>
   </head>
@@ -81,8 +79,10 @@
               <h4>Foursquare Venue Info</h4>
             </div>
             <div class="col-xs-12 col-sm-4 placeholder" data-bind="with: venue()">
-              <img data-bind="attr: { src: selectedPhoto }" class="img-responsive">
-              <div class="btn-group" role="group" aria-label="Basic example">
+              <div class="row">
+                <img data-bind="attr: { src: selectedPhoto }">
+              </div>
+              <div class="btn-group row" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-secondary"
                   data-bind="enable: hasPreviousPhoto(), click: getPreviousPhoto">&larr;</button>
                 <button type="button" class="btn btn-secondary"

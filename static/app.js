@@ -58,11 +58,7 @@ function DatePlace(marker) {
 
             // Attach the panorama in the container and center it in viewport
             new google.maps.StreetViewPanorama(streetViewDiv[0], opts);
-            /*
-            centerModal($('#modal-info'));
-            */
             return resolve(self);
-
           } else {
             return reject(
               new Error(`panorama is not OK for ${self.marker.title}`)
@@ -267,12 +263,6 @@ function ViewModel(cityCenter, locationNames) {
   })
   .catch(err => reportError(err));
 
-/*
-  $(window).on('resize', () => {
-    centerModal($('#modal-info'));
-  });
-  */
-
   /**
    * Displays the street view and date place information for a date place.
    */
@@ -409,32 +399,6 @@ function createDatePlace(locationInfo) {
   });
 
   return datePlace;
-}
-
-
-/**
- * Centers a modal div on a window.
- * @param {jQuery object} modalDiv - The div representing the modal window.
- */
-function centerModal(modalDiv) {
-  // The following logic to center modal window is taken from Javascript and
-  // Jquery: interactive front-end web development, by Jon Duckett.
-  const jqWindow = $(window);
-
-  const windowHeight = jqWindow.height();
-  const windowWidth = jqWindow.width();
-  const modalHeight = windowHeight * .7;
-  const modalWidth = windowWidth * .7;
-
-  const top = Math.max(windowHeight - modalDiv.outerHeight(), 0) / 2;
-  const left = Math.max(windowWidth - modalDiv.outerWidth(), 0) / 2;
-
-  modalDiv.css({
-    top: top + jqWindow.scrollTop(),
-    left: left + jqWindow.scrollLeft(),
-    height: modalHeight,
-    width: modalWidth,
-  });
 }
 
 

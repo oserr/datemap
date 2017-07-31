@@ -83,8 +83,13 @@
             </div>
             <div class="col-xs-12 col-sm-4 placeholder" data-bind="with: venue()">
               <img data-bind="attr: { src: selectedPhoto }" class="img-responsive">
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-secondary"
+                  data-bind="enable: hasPreviousPhoto(), click: getPreviousPhoto">&larr;</button>
+                <button type="button" class="btn btn-secondary"
+                  data-bind="enable: hasNextPhoto(), click: getNextPhoto">&rarr;</button>
+              </div>
               <h4>Foursquare Venue Photos</h4>
-              <span class="text-muted">Something else</span>
             </div>
             <div class="col-xs-12 col-sm-4 placeholder col-street-view">
               <div id="street-view"></div>

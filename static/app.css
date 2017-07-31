@@ -1,181 +1,105 @@
-#map {
-  bottom: 0px;
-  height: 100%;
-  left: 362px;
-  position: absolute;
-  right: 0px;
-}
+/*
+ * Base structure
+ */
 
-.options-box {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  background: #fff;
-  border: 1px solid #999;
-  border-radius: 3px;
-  height: 100%;
-  line-height: 35px;
-  padding: 10px 10px 30px 10px;
-  text-align: left;
-  width: 340px;
-}
-
-* {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
+/* Move down content because we have a fixed navbar that is 50px tall */
 body {
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  display: -webkit-flex;
-  -webkit-align-items: center;
-  align-items: center;
-  -webkit-justify-content: center;
-  justify-content: center;
+  padding-top: 50px;
 }
 
-.grid {
-  margin: 0 auto;
-  width: 100%;
-  max-width: 932px;
-  height: 932px;
-  padding: 10px;
-  z-index: 10000;
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
 }
 
-.upper-row {
-  margin-bottom: 10px;
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+  border: 0;
 }
 
-.lower-row {
-  margin-top: 10px;
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+  display: none;
 }
-
-@media only screen and (max-width: 768px) {
-  .upper-row {
-    height: 33.33%;
-  }
-
-  .lower-row {
-    height: 66.67%;
-  }
-
-  .col-6 {
-      width: 100%;
-      height: 50%
-  }
-
-  .lower-row {
-    flex-wrap: wrap;
-  }
-
-  .venue-info {
-    margin-top: 10px;
-    order: 2;
-  }
-
-  .venue-pics {
-    margin-bottom: 10px;
-    order: 1;
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
   }
 }
 
-@media only screen and (min-width: 768px) {
-  .upper-row {
-    height: 50%;
+/* Sidebar navigation */
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+
+/*
+ * Main content
+ */
+
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
   }
-
-  .lower-row {
-    height: 50%;
-  }
-
-  .col-6 {
-      width: 50%;
-  }
-
-  .venue-info {
-    margin-right: 10px;
-    order: 1;
-  }
-
-  .venue-pics {
-    margin-left: 10px;
-    order: 2;
-  }
+}
+.main .page-header {
+  margin-top: 0;
 }
 
-.row {
-    width: 100%;
-    display: flex;
-}
 
-.col-12 {
-    width: 100%;
-}
+/*
+ * Placeholder dashboard ideas
+ */
 
-.venue-info {
-  background: yellow;
-}
-
-.venue-pics {
-  background: orange;
-}
-
-.button-grp {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-}
-
-.button {
-  width: 100%;
-  display: inline-block;
-  background: lightblue;
-  height: 50px;
+.placeholders {
+  margin-bottom: 30px;
   text-align: center;
-  font-size: 38px;
-  line-height: 100%;
-  border: 2px solid darkblue !important;
-  padding-bottom: 5px;
-  padding-top: 5px;
 }
-
-.button:hover {
-  background: darkblue;
-  color: white;
-  border-color: lightblue;
+.placeholders h4 {
+  margin-bottom: 0;
 }
-
-.rounded-right {
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+.placeholder {
+  margin-bottom: 20px;
 }
-
-.rounded-left {
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-}
-
-.flex-col {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 0px;
-}
-
-img {
-  max-width: 100%;
-  max-height: 100%;
-}
-
-.full-height {
-  height: 100%;
-}
-
-.justify-center {
-  justify-content: center;
+.placeholder img {
+  display: inline-block;
+  border-radius: 5%;
 }

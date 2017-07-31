@@ -1,10 +1,3 @@
-html, body {
-  font-family: Arial, sans-serif;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
 #map {
   bottom: 0px;
   height: 100%;
@@ -14,6 +7,9 @@ html, body {
 }
 
 .options-box {
+  position: absolute;
+  top: 0px;
+  left: 0px;
   background: #fff;
   border: 1px solid #999;
   border-radius: 3px;
@@ -24,51 +20,162 @@ html, body {
   width: 340px;
 }
 
-.modal {
-  position: absolute;
-  z-index: 10000;
-  background: black;
-  padding: 20px;
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-.modal-content {
+body {
   height: 100%;
+  overflow: hidden;
+  display: flex;
+  display: -webkit-flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+.grid {
+  margin: 0 auto;
   width: 100%;
+  max-width: 932px;
+  height: 932px;
+  padding: 10px;
+  z-index: 10000;
 }
 
-#street-view, #foursquare {
-  height: 50%;
-  width: auto;
+.upper-row {
+  margin-bottom: 10px;
 }
 
-#foursquare {
+.lower-row {
+  margin-top: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+  .upper-row {
+    height: 33.33%;
+  }
+
+  .lower-row {
+    height: 66.67%;
+  }
+
+  .col-6 {
+      width: 100%;
+      height: 50%
+  }
+
+  .lower-row {
+    flex-wrap: wrap;
+  }
+
+  .venue-info {
+    margin-top: 10px;
+    order: 2;
+  }
+
+  .venue-pics {
+    margin-bottom: 10px;
+    order: 1;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .upper-row {
+    height: 50%;
+  }
+
+  .lower-row {
+    height: 50%;
+  }
+
+  .col-6 {
+      width: 50%;
+  }
+
+  .venue-info {
+    margin-right: 10px;
+    order: 1;
+  }
+
+  .venue-pics {
+    margin-left: 10px;
+    order: 2;
+  }
+}
+
+.row {
+    width: 100%;
+    display: flex;
+}
+
+.col-12 {
+    width: 100%;
+}
+
+.venue-info {
+  background: yellow;
+}
+
+.venue-pics {
+  background: orange;
+}
+
+.button-grp {
+  width: 100%;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
 }
 
-#venue-info {
-  background: white;
-  color: black;
-  width: 50%;
-}
-
-#venue-pics {
-  height: 100%;
-  width: 50%;
-}
-
-#venue-pics-container {
-  height: 100%;
+.button {
   width: 100%;
+  display: inline-block;
+  background: lightblue;
+  height: 50px;
+  text-align: center;
+  font-size: 38px;
+  line-height: 100%;
+  border: 2px solid darkblue !important;
+  padding-bottom: 5px;
+  padding-top: 5px;
 }
 
-#venue-pic {
-  max-height: 100%;
+.button:hover {
+  background: darkblue;
+  color: white;
+  border-color: lightblue;
+}
+
+.rounded-right {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.rounded-left {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.flex-col {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0px;
+}
+
+img {
   max-width: 100%;
+  max-height: 100%;
 }
 
-#photo-buttons {
-  height: 15%;
-  width: auto;
+.full-height {
+  height: 100%;
+}
+
+.justify-center {
+  justify-content: center;
 }

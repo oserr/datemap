@@ -58,7 +58,9 @@ function DatePlace(marker) {
 
             // Attach the panorama in the container and center it in viewport
             new google.maps.StreetViewPanorama(streetViewDiv[0], opts);
+            /*
             centerModal($('#modal-info'));
+            */
             return resolve(self);
 
           } else {
@@ -265,9 +267,11 @@ function ViewModel(cityCenter, locationNames) {
   })
   .catch(err => reportError(err));
 
+/*
   $(window).on('resize', () => {
     centerModal($('#modal-info'));
   });
+  */
 
   /**
    * Displays the street view and date place information for a date place.

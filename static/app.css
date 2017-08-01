@@ -102,3 +102,9 @@ body {
   display: inline-block;
   border-radius: 5%;
 }
+
+.map-col {
+  min-height: 400px;
+  min-width: 200px;
+  flex: 1 0 200px;
+}

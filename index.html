@@ -56,6 +56,10 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn" data-bind="click: prevDate">&larr;</button>
+            <button type="button" class="btn" data-bind="click: nextDate">&rarr;</button>
+          </div>
           <div class="input-group">
             <input type="text" class="form-control" data-bind="textInput: searchText" placeholder="Filter...">
             <span class="input-group-btn">
@@ -89,7 +93,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-xs-12 col-md-4 placeholder" data-bind="with: venue()">
+            <div class="col-xs-12 col-md-4 placeholder text-center" data-bind="with: venue()">
               <div class="row">
                 <img class="img-responsive" data-bind="attr: { src: selectedPhoto }">
               </div>
@@ -100,7 +104,7 @@
                   data-bind="enable: hasNextPhoto(), click: getNextPhoto">&rarr;</button>
               </div>
             </div>
-            <div class="col-xs-12 col-md-4 placeholder col-street-view">
+            <div class="col-xs-12 col-md-4 placeholder text-center col-street-view">
               <div id="street-view"></div>
             </div>
           </div>

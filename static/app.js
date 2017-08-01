@@ -32,14 +32,12 @@ function DatePlace(marker) {
   this.initStreetView = function(streetViewService) {
 
     return new Promise((resolve, reject) => {
-      console.log('initStreetView()');
 
       streetViewService.getPanoramaByLocation(
         self.marker.position,
         50, // radius
         function(data, status) {
           if (status === google.maps.StreetViewStatus.OK) {
-            console.log(`panorama is OK for ${self.marker.title}`);
 
             const heading = google.maps.geometry.spherical.computeHeading(
               data.location.latLng,
@@ -81,7 +79,6 @@ function DatePlace(marker) {
   this.initVenue = function() {
 
     return new Promise((resolve, reject) => {
-      console.log('initVenue()');
 
       if (self.venue() !== null) {
         return resolve(self);
@@ -268,7 +265,7 @@ function ViewModel(cityCenter, locationNames) {
     const otherLatLng = latLongs.slice(1);
     otherLatLng.forEach(latLng => {
       const dp = createDatePlace.bind(self)(latLng);
-      dp.id = self.datePlaces.length;
+      dp.id = self.datePlaces().length;
       dp.map = self.map;
       dp.marker.setMap(self.map);
       self.datePlaces.push(dp);
@@ -284,7 +281,6 @@ function ViewModel(cityCenter, locationNames) {
       dp.initVenue();
     });
     self.map.fitBounds(bounds);
-    console.log('debug 4');
   })
   .catch(err => reportError(err));
 
@@ -296,6 +292,7 @@ function ViewModel(cityCenter, locationNames) {
     dp = self.selectedDatePlace();
     if (dp != null) {
       dp.isSelected(false);
+      $('#street-view').empty();
     }
     self.selectedDatePlace(datePlace);
     datePlace.isSelected(true);
@@ -335,6 +332,32 @@ function ViewModel(cityCenter, locationNames) {
       self.searchText('');
     }
   };
+
+  /**
+   * Selects the next date location relative to what is currently selected in
+   * the list.
+   */
+  this.nextDate = function() {
+    const dp = self.selectedDatePlace();
+    if (dp != null) {
+      const dpArr = self.datePlaces();
+      const nextDp = dpArr[(dp.id + 1) % dpArr.length];
+      google.maps.event.trigger(nextDp.marker, 'click');
+    }
+  }
+
+  /**
+   * Selects the previous date location relative to what is currently selected
+   * in the list.
+   */
+  this.prevDate = function() {
+    const dp = self.selectedDatePlace();
+    if (dp != null) {
+      const dpArr = self.datePlaces();
+      const prevDp = dpArr[(dp.id - 1 + dpArr.length) % dpArr.length];
+      google.maps.event.trigger(prevDp.marker, 'click');
+    }
+  }
 }
 
 
@@ -344,7 +367,6 @@ function ViewModel(cityCenter, locationNames) {
  */
 function reportError(err) {
   errMsg = `Error: ${err.message}`;
-  console.log(errMsg);
   alert(errMsg);
 }
 
@@ -385,7 +407,6 @@ function geocodePlaceName(placeName, geocoder) {
         });
       } else {
         const err = `failed to geocode ${placeName}`;
-        console.log(err);
         reject(new Error(err));
       }
     });
@@ -453,7 +474,6 @@ function makeMarkerIcon(markerColor) {
  * an Error.
  */
 function searchVenue(locationName) {
-  console.log('searchVenue with locationName=' + locationName);
   return axios.get('https://api.foursquare.com/v2/venues/search', {
     params: {
       v: 20161016,
@@ -466,7 +486,6 @@ function searchVenue(locationName) {
   })
   .then(response => {
     const data = response.data;
-    //console.log(JSON.stringify(response.data));
     if (!data.response.venues || !data.response.venues.length) {
       return Promise.reject(new Error('Search did not yield any venues'));
     }

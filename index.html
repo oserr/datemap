@@ -9,9 +9,23 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="/static/app.css" rel="stylesheet">
     <style>
-      #map {
-        min-height: 400px;
-        max-height: 900px;
+
+      @media only screen and (min-height: 1200px) {
+        #map {
+          min-height: 900px;
+        }
+      }
+
+      @media only screen and (min-height: 1000px) {
+        #map {
+          min-height: 600px;
+        }
+      }
+
+      @media only screen and (min-height: 800) {
+        #map {
+          min-height: 400px;
+        }
       }
 
       #street-view {
@@ -25,6 +39,14 @@
         min-width: 200px;
         max-height: 300px;
         max-width: 300px;
+      }
+
+      .btn-group-flex {
+        display: flex;
+      }
+
+      .btn-flex {
+        flex: 1;
       }
     </style>
   </head>
@@ -56,9 +78,9 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
-          <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn" data-bind="click: prevDate">&larr;</button>
-            <button type="button" class="btn" data-bind="click: nextDate">&rarr;</button>
+          <div class="btn-group btn-group-flex" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-flex" data-bind="click: prevDate">&larr;</button>
+            <button type="button" class="btn btn-flex" data-bind="click: nextDate">&rarr;</button>
           </div>
           <div class="input-group">
             <input type="text" class="form-control" data-bind="textInput: searchText" placeholder="Filter...">
@@ -74,7 +96,6 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
           <div id="map"></div>
         </div>
-
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"
           data-bind="visible: shouldShowInfo, if: selectedDatePlace">
@@ -97,7 +118,7 @@
               <div class="row">
                 <img class="img-responsive" data-bind="attr: { src: selectedPhoto }">
               </div>
-              <div class="btn-group row" role="group" aria-label="Basic example">
+              <div class="btn-group" role="group" aria-label="Basic example">
                 <button type="button" class="btn"
                   data-bind="enable: hasPreviousPhoto(), click: getPreviousPhoto">&larr;</button>
                 <button type="button" class="btn"

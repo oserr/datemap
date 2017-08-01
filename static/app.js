@@ -15,6 +15,7 @@ function DatePlace(marker) {
   this.isVisible = ko.observable(true);
   this.map = null;
   this.isSelected = ko.observable(false);
+  this.id = null;
 
   let self = this;
 
@@ -245,22 +246,45 @@ function ViewModel(cityCenter, locationNames) {
     });
   })
   .then(() => {
-    return locationNames.reduce((seq, locationName) => {
-      return seq.then(() => geocodePlaceName(locationName, self.geocoder))
-      .then(createDatePlace.bind(self))
-      .then(datePlace => self.datePlaces.push(datePlace))
-      .catch(err => reportError(err));
-    }, Promise.resolve());
+    const promiseArr = [];
+    locationNames.forEach(loc => {
+      promiseArr.push(geocodePlaceName(loc, self.geocoder));
+    });
+    return Promise.all(promiseArr);
   })
+  // Initialize the venue for the first item in the array so we can render
+  // everything in page more quickly.
+  .then(latLongs => {
+    const dp = createDatePlace.bind(self)(latLongs[0]);
+    dp.id = 0;
+    dp.map = self.map;
+    dp.marker.setMap(self.map);
+    self.datePlaces.push(dp);
+    google.maps.event.trigger(dp.marker, 'click');
+    return latLongs;
+  })
+  // Now proceed to initialize the other DatePlaces
+  .then(latLongs => {
+    const otherLatLng = latLongs.slice(1);
+    otherLatLng.forEach(latLng => {
+      const dp = createDatePlace.bind(self)(latLng);
+      dp.id = self.datePlaces.length;
+      dp.map = self.map;
+      dp.marker.setMap(self.map);
+      self.datePlaces.push(dp);
+    });
+  })
+  // Now compute the bounds of the map and initialize the venue info for each
+  // item so page can respond more quickly when user selects a different date location.
   .then(() => {
     const bounds = new google.maps.LatLngBounds();
     const arr = self.datePlaces();
-    arr.forEach(datePlace => {
-      datePlace.map = self.map;
-      datePlace.marker.setMap(self.map);
-      bounds.extend(datePlace.marker.position);
+    arr.forEach(dp => {
+      bounds.extend(dp.marker.position);
+      dp.initVenue();
     });
     self.map.fitBounds(bounds);
+    console.log('debug 4');
   })
   .catch(err => reportError(err));
 

@@ -104,7 +104,12 @@ body {
 }
 
 .map-col {
+  margin-bottom: 20px;
   min-height: 400px;
   min-width: 200px;
   flex: 1 0 200px;
+}
+
+button:hover {
+  background-color: darkgrey;
 }

@@ -165,3 +165,8 @@ button:hover,
 td p {
   margin-bottom: 2px;
 }
+
+#fs-logo {
+  width: 35px;
+  height: 35px;
+}

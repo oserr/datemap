@@ -31,7 +31,7 @@
         margin: 0px auto;
       }
 
-      img {
+      .venue-photos {
         min-height: 200px;
         min-width: 200px;
         max-height: 300px;
@@ -104,33 +104,40 @@
             <!-- the venue info -->
             <div class="col-xs-12 col-md-4 placeholder" data-bind="with: selectedDatePlace()">
               <div data-bind="with: venue()" class="text-left">
-                <h2 class="text-center" data-bind="text: name"></h2>
                 <table class="table table-responsive">
-                  <tr>
-                    <th scope="row">Rating</th>
-                    <td data-bind="text: rating"></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">URL</th>
-                    <td data-bind="text: url"></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Phone</th>
-                    <td data-bind="text: formattedPhone"></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Address</th>
-                    <td data-bind="foreach: formattedAddress">
-                      <p data-bind="text: $data"></p>
-                    </td>
-                  </tr>
+                  <thead>
+                    <tr>
+                      <th><img id="fs-logo" src="/static/fs.png"></th>
+                      <th><h2 data-bind="text: name"></h2></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Rating</th>
+                      <td data-bind="text: rating"></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">URL</th>
+                      <td data-bind="text: url"></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Phone</th>
+                      <td data-bind="text: formattedPhone"></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Address</th>
+                      <td data-bind="foreach: formattedAddress">
+                        <p data-bind="text: $data"></p>
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
             </div>
             <!-- the venue photos -->
             <div class="col-xs-12 col-md-4 placeholder text-center" data-bind="with: selectedDatePlace()">
               <div class="row" data-bind="with: venue()">
-                <img class="img-responsive" data-bind="attr: { src: selectedPhoto }">
+                <img class="img-responsive venue-photos" data-bind="attr: { src: selectedPhoto }">
               </div>
               <div class="btn-group" role="group" aria-label="Basic example" data-bind="with: venue()">
                 <button type="button" class="btn"

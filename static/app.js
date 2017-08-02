@@ -241,6 +241,11 @@ function ViewModel(cityCenter, locationNames) {
       center: locationInfo.location,
       zoom: 13,
     });
+    google.maps.event.addDomListener(window, "resize", () => {
+        var center = self.map.getCenter();
+        google.maps.event.trigger(self.map, "resize");
+        self.map.setCenter(center);
+    });
   })
   .then(() => {
     const promiseArr = [];

@@ -104,16 +104,27 @@
             <!-- the venue info -->
             <div class="col-xs-12 col-md-4 placeholder" data-bind="with: selectedDatePlace()">
               <div data-bind="with: venue()" class="text-left">
-                <h2 id="venue-name" data-bind="text: name"></h2>
-                <p id="venue-rating"><strong>Rating:</strong> <span data-bind="text: rating"></span></p>
-                <p id="venue-url"><strong>URL:</strong> <span data-bind="text: url"></span></p>
-                <p id="venue-phone"><strong>Phone:</strong> <span data-bind="text: formattedPhone"></span></p>
-                <div id="venue-address">
-                  <p><strong>Address:</strong></p>
-                  <div data-bind="foreach: formattedAddress">
-                    <p class="address-line" data-bind="text: $data"></p>
-                  </div>
-                </div>
+                <h2 class="text-center" data-bind="text: name"></h2>
+                <table class="table table-responsive">
+                  <tr>
+                    <th scope="row">Rating</th>
+                    <td data-bind="text: rating"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">URL</th>
+                    <td data-bind="text: url"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Phone</th>
+                    <td data-bind="text: formattedPhone"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Address</th>
+                    <td data-bind="foreach: formattedAddress">
+                      <p data-bind="text: $data"></p>
+                    </td>
+                  </tr>
+                </table>
               </div>
             </div>
             <!-- the venue photos -->

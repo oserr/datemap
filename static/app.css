@@ -113,9 +113,6 @@ body {
 .placeholders {
   margin-bottom: 30px;
 }
-.placeholders h4 {
-  margin-bottom: 0;
-}
 .placeholder {
   margin-bottom: 20px;
 }
@@ -129,10 +126,6 @@ body {
   min-height: 400px;
   min-width: 200px;
   flex: 1 0 200px;
-}
-
-button:hover {
-  background-color: darkgrey;
 }
 
 .sidebar {
@@ -157,4 +150,14 @@ a {
 
 .sidebar .btn-group {
   margin-bottom: 20px;
+}
+
+.input-group button {
+  background-color: buttonface;
+}
+
+button:hover,
+.input-group button:hover
+{
+  background-color: darkgrey;
 }

@@ -104,11 +104,11 @@
             <div class="col-xs-12 col-md-4 placeholder" data-bind="with: selectedDatePlace()">
               <div data-bind="with: venue()" class="text-left">
                 <h2 id="venue-name" data-bind="text: name"></h2>
-                <p id="venue-rating">Rating: <span data-bind="text: rating"></span></p>
-                <p id="venue-url">URL: <span data-bind="text: url"></span></p>
-                <p id="venue-phone">Phone: <span data-bind="text: formattedPhone"></span></p>
+                <p id="venue-rating"><strong>Rating:</strong> <span data-bind="text: rating"></span></p>
+                <p id="venue-url"><strong>URL:</strong> <span data-bind="text: url"></span></p>
+                <p id="venue-phone"><strong>Phone:</strong> <span data-bind="text: formattedPhone"></span></p>
                 <div id="venue-address">
-                  <p>Address:</p>
+                  <p><strong>Address:</strong></p>
                   <div data-bind="foreach: formattedAddress">
                     <p class="address-line" data-bind="text: $data"></p>
                   </div>

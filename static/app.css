@@ -7,6 +7,27 @@ body {
   padding-top: 50px;
 }
 
+/* Color scheme */
+.dark-khaki {
+  background-color: #bbbe64;
+}
+
+.sugar-plum {
+  background-color: #8e5572;
+}
+
+.anti-flash-white {
+  background-color: #f2f7f2;
+}
+
+.tuscany {
+  background-color: #bcaa99;
+}
+
+.purple-taupe {
+  background-color: #443850;
+}
+
 
 /*
  * Global add-ons
@@ -63,7 +84,7 @@ body {
 .nav-sidebar > .active > a:hover,
 .nav-sidebar > .active > a:focus {
   color: #fff;
-  background-color: #428bca;
+  background-color: #bcaa99;
 }
 
 
@@ -112,4 +133,28 @@ body {
 
 button:hover {
   background-color: darkgrey;
+}
+
+.sidebar {
+  background-color: #bbbe64;
+}
+
+.navbar {
+  background-color: #443850;
+}
+
+body {
+  background-color: #f2f7f2;
+}
+
+a {
+  color: #8e5572;
+}
+
+.sidebar .input-group {
+  margin-bottom: 5px;
+}
+
+.sidebar .btn-group {
+  margin-bottom: 20px;
 }

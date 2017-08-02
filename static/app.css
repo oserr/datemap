@@ -161,3 +161,7 @@ button:hover,
 {
   background-color: darkgrey;
 }
+
+td p {
+  margin-bottom: 2px;
+}

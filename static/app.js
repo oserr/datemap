@@ -386,6 +386,7 @@ function initViewModel() {
 
 /**
  * Geocodes a place in San Francisco, CA.
+ *
  * @param {string} placeName - The name of a place in San Francisco, e.g.,
  * Twin Peaks.
  * @param {Geocoder} geocoder - A Google Maps API geocoder.
@@ -415,6 +416,7 @@ function geocodePlaceName(placeName, geocoder) {
 /**
  * Creates a new DatePlace object with a Google Maps Marker and attaches
  * some listeners on the marker.
+ *
  * @param {object} locationInfo - The location information for the marker.
  * Contains fields name and location, representing the name of the location,
  * and the latitude and longitude coordinates.
@@ -452,6 +454,11 @@ function createDatePlace(locationInfo) {
 }
 
 
+/**
+ * Creates a Google Maps marker icon with a given color.
+ *
+ * @param {String} markerColor - A hex code representing a color.
+ */
 function makeMarkerIcon(markerColor) {
   return new google.maps.MarkerImage(
     `http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|${markerColor}|40|_|%E2%80%A2`,

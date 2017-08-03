@@ -19,13 +19,13 @@ function DatePlace(marker) {
 
   /**
    * Initializes the street view, a raw Element node that contains the
-   * HTML/javascript for the panorama street view.
+   * HTML for the panorama street view.
    *
    * @param {StreetViewService} streetViewService - A Google Maps API street
    * view service to convert obtain the panoramic street view of a given
    * location.
    * @return {Promise} A promise that is resovled with this DatePlace on
-   * success, or an Error on failure.
+   * success, or rejected with an Error on failure.
    */
   this.initStreetView = function(streetViewService) {
 
@@ -106,7 +106,7 @@ function DatePlace(marker) {
   };
 
   /**
-   * Sets the marker icon to the default marker icon.
+   * Applies a search by either setting itself to visible if it matches the search, or hiding itself if it doesn't.
    */
   this.applySearch = function(text) {
     text = text.trim().toLowerCase();

@@ -99,6 +99,19 @@ google.maps.event.addDomListener(window, "resize", () => {
 });
 ```
 
+## Creating a marker for each venue location
+For detailed information about markers, refer to the [Marker][16] reference, but the essential part is creating a marker with a position, icon, and a map. E.g.,
+
+```javascript
+const marker = new google.maps.Marker({
+  map: map,
+  position: locationInfo.location,
+  title: locationInfo.name,
+  icon: self.defaultIcon,
+  animation: google.maps.Animation.DROP,
+});
+```
+
 
 [1]: http://knockoutjs.com/
 [2]: https://developers.google.com/maps/
@@ -115,3 +128,4 @@ google.maps.event.addDomListener(window, "resize", () => {
 [13]: https://developers.google.com/maps/documentation/javascript/3.exp/reference#Geocoder
 [14]: https://developers.google.com/maps/documentation/javascript/3.exp/reference#Map
 [15]: https://developers.google.com/maps/documentation/javascript/3.exp/reference#MapOptions
+[16]: https://developers.google.com/maps/documentation/javascript/3.exp/reference#Marker

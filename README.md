@@ -54,7 +54,7 @@ The application does the following:
 4. Creates a marker for each of the venue locations in the map
 5. Searches for each of the venues in Foursquare using their [search end point][10]
 6. Fetches the venue info using Foursquare's [venues endpoint][11]
-7. Renders a single page app allowing users to see information about the different venues, which containing the following:
+7. Renders a single page app allowing users to see information about the different venues, which contains the following:
     * map
     * venue info
     * pictures of the venue

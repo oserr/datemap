@@ -9,3 +9,6 @@ example-response.js
 
 # Ignore foursquare api id and secret
 foursquare-api.txt
+
+# Ignore conda env
+env/*

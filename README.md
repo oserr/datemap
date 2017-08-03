@@ -58,6 +58,9 @@ Assuming that you are using my setup with Flask, and this root folder is your cu
     * if environment was created locally: `source activate env`. If this is not the current working directory, then you nee to specify the path to `env`.
 5. Launch flask: `python app.py`.
 6. Browse the app by opening a browser and fetching `localhost:500`.
+7. When you are done, exit your environment with `source deactivate`.
+
+If you are on Windows, then you can activate and deactivate environments without preceding the commands with `source`, e.g., `activate datemap`.
 
 ## The application
 

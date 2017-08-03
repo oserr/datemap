@@ -246,3 +246,4 @@ Without KnockoutJS, I would have had to add logic to fetch the HTML elements dis
 [18]: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
 [19]: https://jquery.com/
 [20]: http://callbackhell.com/
+[conda]: https://www.continuum.io/downloads

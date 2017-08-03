@@ -42,7 +42,7 @@ And put your Google Maps API key in _google-maps-api-key.txt_, like this
 YOUR_GOOGLE_MAPS_KEY_HERE
 ```
 
-This is not the only way of automating the keys. For example, you might also use something like [GulpJs][8] to put together the template, simply spitting out the end-result once instead of using Flask to put it toger on every request. Or you can simply copy the keys into the file manually. What's important is that the keys need to be embedded in the application.
+This is not the only way of automating the keys. For example, you might also use something like [GulpJs][8] to put together the template, simply spitting out the end-result once instead of using Flask to put it together on every request. Or you can simply copy the keys into the file manually. What's important is that the keys need to be embedded in the application.
 
 [1]: http://knockoutjs.com/
 [2]: https://developers.google.com/maps/

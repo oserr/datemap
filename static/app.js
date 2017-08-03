@@ -1,14 +1,13 @@
 const UNKNOWN_OR_NA = 'Unknown or n/a';
 
 
+/**
+ * Initializes a DatePlace with a Google Maps API Marker.
+ *
+ * @param {Marker} marker - A Google Maps API marker that contains the
+ * latitude and longitude coordinates of a given place.
+ */
 function DatePlace(marker) {
-  /**
-   * Initializes the object with a Google Maps API Marker.
-   *
-   * @param {Marker} marker - A Google Maps API marker that contains the
-   * latitude and longitude coordinates of a given place.
-   */
-  this.className = 'DatePlace';
   this.marker = marker;
   this.venue = ko.observable(null);
   this.isVisible = ko.observable(true);
@@ -130,7 +129,6 @@ function DatePlace(marker) {
  * containing information about a venue.
  */
 function Venue(venue) {
-  this.className = 'Venue';
   this.name = venue.name;
   this.formattedPhone = venue.contact.formattedPhone || UNKNOWN_OR_NA;
   this.formattedAddress = venue.location.formattedAddress || UNKNOWN_OR_NA;
@@ -220,7 +218,6 @@ function ViewModel(cityCenter, locationNames) {
    * @param {Array} locationNames - A list of date places to display on the
    * map.
    */
-  this.className = 'ViewModel';
   this.map = null;
   this.datePlaces = ko.observableArray([]);
   this.geocoder = new google.maps.Geocoder();

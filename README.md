@@ -45,13 +45,17 @@ YOUR_GOOGLE_MAPS_KEY_HERE
 This is not the only way of automating the keys. For example, you might also use something like [GulpJs][8] to put together the template, simply spitting out the end-result once instead of using Flask to put it together on every request. Or you can simply copy the keys into the file manually. What's important is that the keys need to be embedded in the application.
 
 ## Testing the application
-Assuming that you are using my setup with Flask, do the following to get started
+Assuming that you are using my setup with Flask, and this root folder is your current working directory, do the following to get started
 
 1. Install Anaconda if you don't have it. See this [instructions][conda].
 2. Save your Foursquare API client key and secret in *foursquare-api.txt*.
 3. Save your Google Maps API key in *google-maps-api-key.txt*.
-4. Create the conda environment: `conda-env create datemap-env.txt`.
-4. Activate the environment: `source activate datemap`.
+4. Create the conda environment
+    * in global environment: `conda env create -f=environment.yml -n datemap`. Or replace `datemap` with your desired environment name.
+    * in project directory: `conda env create -f=environment.yml -p env`. Or replace `env` with your desired environment name.
+4. Activate the environment
+    * if environment was created globally: `source activate datemap`.
+    * if environment was created locally: `source activate env`. If this is not the current working directory, then you nee to specify the path to `env`.
 5. Launch flask: `python app.py`.
 6. Browse the app by opening a browser and fetching `localhost:500`.
 

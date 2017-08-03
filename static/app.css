@@ -140,7 +140,7 @@ body {
   background-color: #f2f7f2;
 }
 
-a {
+.sidebar a {
   color: #8e5572;
 }
 
@@ -169,4 +169,8 @@ td p {
 #fs-logo {
   width: 35px;
   height: 35px;
+}
+
+.venue-link {
+  color: #443850;
 }

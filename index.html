@@ -28,7 +28,19 @@
       #street-view {
         height: 300px;
         width: 300px;
-        margin: 0px auto;
+        margin: 0 auto;
+      }
+
+      @media (min-width: 992px) {
+        #street-view {
+          width: 350;
+        }
+      }
+
+      @media (min-width: 1200px) {
+        #street-view {
+          width: 400;
+        }
       }
 
       .venue-photos {
@@ -102,13 +114,13 @@
               <div id="map"></div>
             </div>
             <!-- the venue info -->
-            <div class="col-xs-12 col-md-4 placeholder" data-bind="with: selectedDatePlace()">
+            <div class="col-xs-12 col-sm-12 col-lg-4 placeholder" data-bind="with: selectedDatePlace()">
               <div data-bind="with: venue()" class="text-left">
                 <table class="table table-responsive">
                   <thead>
                     <tr>
                       <th><img id="fs-logo" src="/static/fs.png"></th>
-                      <th><h2 data-bind="text: name"></h2></th>
+                      <th><h2><a class="venue-link" data-bind="text: name, attr: { href: fsUrl}"></a></h2></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -118,7 +130,7 @@
                     </tr>
                     <tr>
                       <th scope="row">URL</th>
-                      <td data-bind="text: url"></td>
+                      <td data-bind="html: url"></td>
                     </tr>
                     <tr>
                       <th scope="row">Phone</th>
@@ -135,7 +147,7 @@
               </div>
             </div>
             <!-- the venue photos -->
-            <div class="col-xs-12 col-md-4 placeholder text-center" data-bind="with: selectedDatePlace()">
+            <div class="col-xs-12 col-sm-12 col-lg-4 placeholder text-center" data-bind="with: selectedDatePlace()">
               <div class="row" data-bind="with: venue()">
                 <img class="img-responsive venue-photos" data-bind="attr: { src: selectedPhoto }">
               </div>
@@ -147,7 +159,7 @@
               </div>
             </div>
             <!-- the street view -->
-            <div class="col-xs-12 col-md-4 placeholder text-center col-street-view">
+            <div class="col-xs-12 col-sm-12 col-lg-4 placeholder text-center col-street-view">
               <div id="street-view"></div>
             </div>
           </div>

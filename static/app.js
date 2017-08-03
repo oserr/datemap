@@ -1,4 +1,3 @@
-const MAX_4SQUARE_PICS = 5;
 const UNKNOWN_OR_NA = 'Unknown or n/a';
 
 
@@ -133,25 +132,24 @@ function DatePlace(marker) {
 function Venue(venue) {
   this.className = 'Venue';
   this.name = venue.name;
-  this.url = venue.url || UNKNOWN_OR_NA;
   this.formattedPhone = venue.contact.formattedPhone || UNKNOWN_OR_NA;
   this.formattedAddress = venue.location.formattedAddress || UNKNOWN_OR_NA;
   this.rating = venue.rating || UNKNOWN_OR_NA;
   this.photoLinks = [];
   this.selectedPhoto = ko.observable(null);
   this.selectedPhotoIndex = ko.observable(null);
+  this.fsUrl = venue.canonicalUrl;
+  this.url = venue.url ? `<a class="venue-link" href="${venue.url}">${venue.url}</a>`
+                       : UNKNOWN_OR_NA;
 
-  // Search for at most MAX_4SQUARE_PICS photos and build the links for them.
   // The current Foursquare API requires that a size be wedged between the
   // prefix and suffix of the URL, e.g., XXxYY, original, capXX, etc.
-  const totalItems = venue.photos.groups[0].count;
-  for (let i = 0; i < totalItems &&
-       this.photoLinks.length < MAX_4SQUARE_PICS; ++i) {
-    item = venue.photos.groups[0].items[i];
+  const photosArr = venue.photos.groups[0].items;
+  photosArr.forEach(item => {
     if (item.visibility === 'public') {
       this.photoLinks.push(`${item.prefix}original${item.suffix}`);
     }
-  }
+  });
 
   // If we find photos, then select the first one to display on window
   if (this.photoLinks.length) {

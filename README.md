@@ -1,6 +1,6 @@
 # San Francisco Date Map
 
-A Udacity project to create a single page web app that uses [KnockoutJS][1], and the [Google Maps][2] and [Foursquare][3] APIs. The map displays a partial list of rommantic locations recommended here [article][4].
+A Udacity project to create a single page web app that uses [KnockoutJS][1], and the [Google Maps][2] and [Foursquare][3] APIs. The map displays a partial list of romantic locations recommended here [article][4].
 
 # Developer API keys
 
@@ -29,7 +29,7 @@ The last few lines of _index.html_ contain a few template parameters indicating 
 {{ key }}            =>  Google Maps key
 ```
 
-For production, the keys should be embedded in the application, however, it may be safer and more convenient to store the API keys separately and to use a template engine or automation tool to automatically configure the application files with the desired aAPI keys. Besides the obvious benefit of reducing the exposure of the API keys and thus making it less likely that other people will use your keys, automating the configuration makes it easier to switch between keys, for example, if you want to use different keys for production, development, and/or testing environments. This is the approach I've taken, configuring the keys via [Flask][6] because it uses [Jinja][7] as its default templating engine. If you want to follow this same approach, then you'll need to put your Foursquare API keys in _foursquare-api.txt_, in the root directory,  with the following format
+For production, the keys should be embedded in the application, however, it may be safer and more convenient to store the API keys separately and to use a template engine or automation tool to automatically configure the application files with the desired API keys. Besides the obvious benefit of reducing the exposure of the API keys and thus making it less likely that other people will use your keys in their own applications, automating the configuration makes it easier to switch between keys, for example, if you want to use different keys for production, development, and/or testing environments. This is the approach I've taken, configuring the keys via [Flask][6] because it uses [Jinja][7] as its default templating engine. If you want to follow this same approach, then you'll need to put your Foursquare API keys in _foursquare-api.txt_, in the root directory,  with the following format
 
 ```
 client_id=YOUR_FOURSQUARE_CLIENT_ID_HERE

@@ -60,6 +60,30 @@ The application does the following:
     * pictures of the venue
     * a street view of the location
 
+## Geocoding locations
+For detailed information about Google's Geocodeing API, refer to their [Getting Started][12] guide. My use case was pretty simple, as manifested by the simple function I created to geocode place names:
+
+```javascript
+function geocodePlaceName(placeName, geocoder) {
+  return new Promise((resolve, reject) => {
+    const loc = { address: `${placeName}, San Francisco, CA`};
+    geocoder.geocode(loc, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        resolve({
+          name: placeName,
+          location: results[0].geometry.location
+        });
+      } else {
+        const err = `failed to geocode ${placeName}`;
+        reject(new Error(err));
+      }
+    });
+  });
+}
+```
+
+If you have a `Geocoder`, then all you need to do is pass in an object literal with an `address` field (see [Geocoder reference][13] for other `GeocoderRequst` options), and a callback to process the results -- an array which may contain more than one coordinate, with the very first one being the best guess. When using the Geocoder, it is important to note that requests are rate-limited to about 10 per second.
+
 [1]: http://knockoutjs.com/
 [2]: https://developers.google.com/maps/
 [3]: https://developer.foursquare.com/
@@ -71,3 +95,5 @@ The application does the following:
 [9]: https://en.wikipedia.org/wiki/Twin_Peaks_(San_Francisco)
 [10]: https://developer.foursquare.com/docs/venues/search
 [11]: https://developer.foursquare.com/docs/venues/venues
+[12]: https://developers.google.com/maps/documentation/geocoding/start
+[13]: https://developers.google.com/maps/documentation/javascript/3.exp/reference#Geocoder

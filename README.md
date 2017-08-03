@@ -44,17 +44,28 @@ YOUR_GOOGLE_MAPS_KEY_HERE
 
 This is not the only way of automating the keys. For example, you might also use something like [GulpJs][8] to put together the template, simply spitting out the end-result once instead of using Flask to put it together on every request. Or you can simply copy the keys into the file manually. What's important is that the keys need to be embedded in the application.
 
+## Testing the application
+Assuming that you are using my setup with Flask, do the following to get started
+
+1. Install Anaconda if you don't have it. See this [instructions][conda].
+2. Save your Foursquare API client key and secret in *foursquare-api.txt*.
+3. Save your Google Maps API key in *google-maps-api-key.txt*.
+4. Create the conda environment: `conda-env create datemap-env.txt`.
+4. Activate the environment: `source activate datemap`.
+5. Launch flask: `python app.py`.
+6. Browse the app by opening a browser and fetching `localhost:500`.
+
 ## The application
 
 The application does the following:
 
-1. Geocodes the location of [Twin Peaks][9] in San Francisco
-2. Creates a Google map centered on Twin Peaks
-3. Geocodes about 10 venue locations in San Francisco
-4. Creates a marker for each of the venue locations in the map
-5. Searches for each of the venues in Foursquare using their [search end point][10]
-6. Fetches the venue info using Foursquare's [venues endpoint][11]
-7. Wires the HTML views with the Javascript models with KnockoutJS and renders a single page app allowing users to see information about the different venues, which contains the following:
+* Geocodes the location of [Twin Peaks][9] in San Francisco
+* Creates a Google map centered on Twin Peaks
+* Geocodes about 10 venue locations in San Francisco
+* Creates a marker for each of the venue locations in the map
+* Searches for each of the venues in Foursquare using their [search end point][10]
+* Fetches the venue info using Foursquare's [venues endpoint][11]
+* Wires the HTML views with the Javascript models with KnockoutJS and renders a single page app allowing users to see information about the different venues, which contains the following:
     * map
     * venue info
     * pictures of the venue

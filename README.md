@@ -4,7 +4,7 @@ A Udacity project to create a single page web app that uses [KnockoutJS][1], and
 
 # Developer API keys
 
-## Getting a Key
+## Getting a key
 To access the Google Maps and Foursquare developer APIs you need to obtain client keys that need to be embedded in the HTML/Javascript. Obtaining keys from them is straight forward, but it is a little more complicated for Google simply because they have a ton of other developer APIs. To get started with Google, follow their [Get API Key][5] instructions. To get started with Foursquare, follow the instructions in the [developer site][3].
 
 ## Embedding the keys in the application
@@ -44,6 +44,22 @@ YOUR_GOOGLE_MAPS_KEY_HERE
 
 This is not the only way of automating the keys. For example, you might also use something like [GulpJs][8] to put together the template, simply spitting out the end-result once instead of using Flask to put it together on every request. Or you can simply copy the keys into the file manually. What's important is that the keys need to be embedded in the application.
 
+# The application
+
+The application does the following:
+
+1. Geocodes the location of [Twin Peaks][9] in San Francisco
+2. Creates a Google map centered on Twin Peaks
+3. Geocodes about 10 venue locations in San Francisco
+4. Creates a marker for each of the venue locations in the map
+5. Searches for each of the venues in Foursquare using their [search end point][10]
+6. Fetches the venue info using Foursquare's [venues endpoint][11]
+7. Renders a single page app allowing users to see information about the different venues, which containing the following:
+  * map
+  * venue info
+  * pictures of the venue
+  * a street view of the location
+
 [1]: http://knockoutjs.com/
 [2]: https://developers.google.com/maps/
 [3]: https://developer.foursquare.com/
@@ -52,3 +68,6 @@ This is not the only way of automating the keys. For example, you might also use
 [6]: http://flask.pocoo.org/
 [7]: http://jinja.pocoo.org/
 [8]: https://gulpjs.com/
+[9]: https://en.wikipedia.org/wiki/Twin_Peaks_(San_Francisco)
+[10]: https://developer.foursquare.com/docs/venues/search
+[11]: https://developer.foursquare.com/docs/venues/venues

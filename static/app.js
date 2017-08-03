@@ -211,16 +211,20 @@ function Venue(venue) {
 }
 
 
+/**
+ * Initializes a KnockoutJS view model for the web page.
+ *
+ * Several things happen at initialization:
+ * - Multiple date locations are geocoded via Google's APIs.
+ * - The first date location is selected to display on the page when it loads.
+ * - Fetch the venue information for each date location via Fousquare API.
+ *
+ * @param {String} cityCenter - The center of a city where Google Map should be
+ * centered.
+ * @param {Array} locationNames - An array of strings representing date
+ * locations.
+ */
 function ViewModel(cityCenter, locationNames) {
-  /**
-   * Initializes multiple pieces of the ViewModel, including the geocoder, a
-   * couple of icons for the Google Maps API markers, a map centered on
-   * cityCenter, and the set of markers corresponding to date locations.
-   *
-   * @param {string} cityCenter - A name of a place to center the map.
-   * @param {Array} locationNames - A list of date places to display on the
-   * map.
-   */
   this.map = null;
   this.datePlaces = ko.observableArray([]);
   this.geocoder = new google.maps.Geocoder();
@@ -275,7 +279,8 @@ function ViewModel(cityCenter, locationNames) {
     });
   })
   // Now compute the bounds of the map and initialize the venue info for each
-  // item so page can respond more quickly when user selects a different date location.
+  // item so page can respond more quickly when user selects a different date
+  // location.
   .then(() => {
     const bounds = new google.maps.LatLngBounds();
     const arr = self.datePlaces();
@@ -299,16 +304,6 @@ function ViewModel(cityCenter, locationNames) {
     }
     self.selectedDatePlace(datePlace);
     datePlace.isSelected(true);
-  };
-
-  /**
-   * Hides the window with the street view and information for a date place.
-   */
-  this.removeInfo = function() {
-    self.shouldShowInfo(false);
-    self.selectedDatePlace().isSelected(false);
-    self.selectedDatePlace(null);
-    $('#street-view').empty();
   };
 
   /**

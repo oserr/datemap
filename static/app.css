@@ -7,6 +7,56 @@ body {
   padding-top: 50px;
 }
 
+#map {
+  min-height: 400px;
+}
+
+@media only screen and (min-height: 1000px) {
+  #map {
+    min-height: 600px;
+  }
+}
+
+@media only screen and (min-height: 1200px) {
+  #map {
+    min-height: 900px;
+  }
+}
+
+#street-view {
+  height: 300px;
+  width: 300px;
+  margin: 0 auto;
+}
+
+@media (min-width: 992px) {
+  #street-view {
+    width: 350;
+  }
+}
+
+@media (min-width: 1200px) {
+  #street-view {
+    width: 400;
+  }
+}
+
+.venue-photos {
+  min-height: 200px;
+  min-width: 200px;
+  max-height: 300px;
+  max-width: 300px;
+  margin-bottom: 5px;
+}
+
+.btn-group-flex {
+  display: flex;
+}
+
+.btn-flex {
+  flex: 1;
+}
+
 /* Color scheme */
 .dark-khaki {
   background-color: #bbbe64;

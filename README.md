@@ -54,11 +54,13 @@ The application does the following:
 4. Creates a marker for each of the venue locations in the map
 5. Searches for each of the venues in Foursquare using their [search end point][10]
 6. Fetches the venue info using Foursquare's [venues endpoint][11]
-7. Renders a single page app allowing users to see information about the different venues, which contains the following:
+7. Wires the HTML views with the Javascript models with KnockoutJS and renders a single page app allowing users to see information about the different venues, which contains the following:
     * map
     * venue info
     * pictures of the venue
     * a street view of the location
+    * a search box allowing users to filter the date locations
+    * a list of the date locations which users can use instead of the markers to display information about the venue in the venue info box, the venue photos box, and the street view
 
 ## Geocoding locations
 For detailed information about Google's Geocoding API, refer to their [Getting Started][12] guide. My use case was pretty simple, as manifested by the simple function I created to geocode place names:

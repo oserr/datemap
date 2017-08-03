@@ -112,7 +112,7 @@ function DatePlace(marker, id) {
    */
   this.applySearch = function(text) {
     text = text.trim().toLowerCase();
-    if (text === ''
+    if (text === '' \
       || self.marker.getTitle().toLowerCase().includes(text))  {
       self.marker.setMap(self.map);
       self.isVisible(true);
@@ -294,7 +294,7 @@ function ViewModel(cityCenter, locationNames) {
   this.showInfo = function(datePlace) {
     self.shouldShowInfo(true);
     dp = self.selectedDatePlace();
-    if (dp != null) {
+    if (dp !== null) {
       dp.isSelected(false);
       $('#street-view').empty();
     }
@@ -333,12 +333,12 @@ function ViewModel(cityCenter, locationNames) {
    */
   this.nextDate = function() {
     const dp = self.selectedDatePlace();
-    if (dp != null) {
+    if (dp !== null) {
       const dpArr = self.datePlaces();
       const nextDp = dpArr[(dp.id + 1) % dpArr.length];
       self.triggerClickOnMarker(nextDp);
     }
-  }
+  };
 
   /**
    * Selects the previous date location relative to what is currently selected
@@ -346,12 +346,12 @@ function ViewModel(cityCenter, locationNames) {
    */
   this.prevDate = function() {
     const dp = self.selectedDatePlace();
-    if (dp != null) {
+    if (dp !== null) {
       const dpArr = self.datePlaces();
       const prevDp = dpArr[(dp.id - 1 + dpArr.length) % dpArr.length];
       self.triggerClickOnMarker(prevDp);
     }
-  }
+  };
 }
 
 
@@ -375,7 +375,7 @@ function initViewModel() {
     'B. Patisserie','Palace of Fine Arts',
     'Press Club', 'Saison',
     'Mason Pacific', 'Shakespeare Garden', 'Golden Gate Bridge',
-  ]
+  ];
   ko.applyBindings(new ViewModel('Twin Peaks', locationNames));
 }
 

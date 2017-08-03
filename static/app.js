@@ -6,14 +6,15 @@ const UNKNOWN_OR_NA = 'Unknown or n/a';
  *
  * @param {Marker} marker - A Google Maps API marker that contains the
  * latitude and longitude coordinates of a given place.
+ * @param {Number} id - The ID for this DateLocation.
  */
-function DatePlace(marker) {
+function DatePlace(marker, id) {
   this.marker = marker;
   this.venue = ko.observable(null);
   this.isVisible = ko.observable(true);
-  this.map = null;
+  this.map = marker.getMap();
   this.isSelected = ko.observable(false);
-  this.id = null;
+  this.id = id;
 
   let self = this;
 
@@ -259,10 +260,7 @@ function ViewModel(cityCenter, locationNames) {
   // Initialize the venue for the first item in the array so we can render
   // everything in page more quickly.
   .then(latLongs => {
-    const dp = createDatePlace.bind(self)(latLongs[0]);
-    dp.id = 0;
-    dp.map = self.map;
-    dp.marker.setMap(self.map);
+    const dp = createDatePlace.bind(self)(latLongs[0], 0, self.map);
     self.datePlaces.push(dp);
     google.maps.event.trigger(dp.marker, 'click');
     return latLongs;
@@ -271,10 +269,8 @@ function ViewModel(cityCenter, locationNames) {
   .then(latLongs => {
     const otherLatLng = latLongs.slice(1);
     otherLatLng.forEach(latLng => {
-      const dp = createDatePlace.bind(self)(latLng);
-      dp.id = self.datePlaces().length;
-      dp.map = self.map;
-      dp.marker.setMap(self.map);
+      const id = self.datePlaces().length;
+      const dp = createDatePlace.bind(self)(latLng, id, self.map);
       self.datePlaces.push(dp);
     });
   })
@@ -420,19 +416,23 @@ function geocodePlaceName(placeName, geocoder) {
  * @param {object} locationInfo - The location information for the marker.
  * Contains fields name and location, representing the name of the location,
  * and the latitude and longitude coordinates.
+ * @param {Number} id - The ID for the DateLocation.
+ * @param {Map} map - The map for the marker.
+ * @return {DatePlace} The DatePlace containing the marker.
  */
-function createDatePlace(locationInfo) {
+function createDatePlace(locationInfo, id, map) {
 
   const self = this;
 
   const marker = new google.maps.Marker({
+    map: map,
     position: locationInfo.location,
     title: locationInfo.name,
     icon: self.defaultIcon,
     animation: google.maps.Animation.DROP,
   });
 
-  let datePlace = new DatePlace(marker);
+  let datePlace = new DatePlace(marker, id);
 
   marker.addListener('click', function() {
     self.showInfo(datePlace);

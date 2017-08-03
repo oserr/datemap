@@ -161,7 +161,7 @@ function getVenueInfo(idObj) {
 The view model bound to KO is `ViewModel`, and the main benefit of using KO is that it makes it easir to allow the user to cycle through the date locations without having to resort to [callback hell][20]. For example, to display the contact info for a venue when a user selects a different venue, it is not necessary to attach a bunch of listeners on different DOM elements to update them manually, but rather we can bind the data we want to display, i.e., the model, with the HTML, i.e., the view, and add some logic for KO to observe the data so that the data is updated automatically when it changes.
 
 ### The model
-To allow KO to observe which date location is selected, I added a variable, `selectedDatePlace`, that is assigned the date location a users selects. By making it a `ko.observable`, KO is notifed anytime the state of `selectedDatePlace` changes.
+To allow KO to observe which date location is selected, I added a variable, `selectedDatePlace`, that is assigned the date location a user selects. By making it a `ko.observable`, KO is notifed anytime the state of `selectedDatePlace` changes.
 
 ```javascript
 function ViewModel(cityCenter, locationNames) {

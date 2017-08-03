@@ -369,16 +369,16 @@ function reportError(err) {
 }
 
 
+/**
+ * Initializes the view model with center of Twin Peaks in San Francisco, and
+ * an array of date locations.
+ */
 function initViewModel() {
-  var locationNames = [
+  const locationNames = [
     'Choux Bakery', 'Top of the Mark', 'Nob Hill Spa',
     'B. Patisserie','Palace of Fine Arts',
     'Press Club', 'Saison',
     'Mason Pacific', 'Shakespeare Garden', 'Golden Gate Bridge',
-    /*
-     Telegraph Hill, Filbert Stairs',
-    'Exploratorium', 'Stow Lake', 'Crissy Field', 'Waterbar'
-    */
   ]
   ko.applyBindings(new ViewModel('Twin Peaks', locationNames));
 }

@@ -51,8 +51,8 @@ Assuming that you are using my setup with Flask, and this root folder is your cu
 2. Save your Foursquare API client key and secret in *foursquare-api.txt*.
 3. Save your Google Maps API key in *google-maps-api-key.txt*.
 4. Create the conda environment
-    * in global environment: `conda env create -f=environment.yml -n datemap`. Or replace `datemap` with your desired environment name.
-    * in project directory: `conda env create -f=environment.yml -p env`. Or replace `env` with your desired environment name.
+    * in global environment: `conda env create -n datemap`. Or replace `datemap` with your desired environment name.
+    * in project directory: `conda env create -p env`. Or replace `env` with your desired environment name.
 4. Activate the environment
     * if environment was created globally: `source activate datemap`.
     * if environment was created locally: `source activate env`. If this is not the current working directory, then you nee to specify the path to `env`.

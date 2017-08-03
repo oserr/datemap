@@ -112,8 +112,7 @@ function DatePlace(marker, id) {
    */
   this.applySearch = function(text) {
     text = text.trim().toLowerCase();
-    if (text === '' \
-      || self.marker.getTitle().toLowerCase().includes(text))  {
+    if (text === '' || self.marker.getTitle().toLowerCase().includes(text)) {
       self.marker.setMap(self.map);
       self.isVisible(true);
     } else {

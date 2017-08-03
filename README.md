@@ -157,6 +157,65 @@ function getVenueInfo(idObj) {
 }
 ```
 
+## Wires the app with KnockoutJS
+The view model bound to KO is `ViewModel`, and the main benefit of using KO is that it makes it easir to allow the user to cycle through the date locations without having to resort to [callback hell][20]. For example, to display the contact info for a venue when a user selects a different venue, it is not necessary to attach a bunch of listeners on different DOM elements to update them manually, but rather we can bind the data we want to display, i.e., the model, with the HTML, i.e., the view, and add some logic for KO to observe the data so that the data is updated automatically when it changes.
+
+### The model
+To allow KO to observe which date location is selected, I added a variable, `selectedDatePlace`, that is assigned the date location a users selects. By making it a `ko.observable`, KO is notifed anytime the state of `selectedDatePlace` changes.
+
+```javascript
+function ViewModel(cityCenter, locationNames) {
+  this.map = null;
+  this.datePlaces = ko.observableArray([]);
+  this.geocoder = new google.maps.Geocoder();
+  this.defaultIcon = makeMarkerIcon('0091ff');
+  this.highlightedIcon = makeMarkerIcon('FFFF24');
+  this.shouldShowInfo = ko.observable(false);
+  this.streetViewService = new google.maps.StreetViewService();
+  this.selectedDatePlace = ko.observable(null);
+  this.searchText = ko.observable('');
+```
+
+### The view
+Without KnockoutJS, I would have had to add logic to fetch the HTML elements displaying venue information, however, with KnockoutJS it is simply a matter of binding via `data-bind` the data with the tag, and KO takes care of updating the DOM nodes when the data changes.
+
+```html
+<!-- the venue info -->
+<div class="col-xs-12 col-sm-12 col-lg-4 placeholder" data-bind="with: selectedDatePlace()">
+  <div data-bind="with: venue()" class="text-left">
+    <table class="table table-responsive">
+      <thead>
+        <tr>
+          <th><img id="fs-logo" src="/static/fs.png"></th>
+          <th><h2><a class="venue-link" data-bind="text: name, attr: { href: fsUrl}"></a></h2></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Rating</th>
+          <td data-bind="text: rating"></td>
+        </tr>
+        <tr>
+          <th scope="row">URL</th>
+          <td data-bind="html: url"></td>
+        </tr>
+        <tr>
+          <th scope="row">Phone</th>
+          <td data-bind="text: formattedPhone"></td>
+        </tr>
+        <tr>
+          <th scope="row">Address</th>
+          <td data-bind="foreach: formattedAddress">
+            <p data-bind="text: $data"></p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+```
+
+
 
 [1]: http://knockoutjs.com/
 [2]: https://developers.google.com/maps/
@@ -177,3 +236,4 @@ function getVenueInfo(idObj) {
 [17]: https://github.com/mzabriskie/axios
 [18]: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
 [19]: https://jquery.com/
+[20]: http://callbackhell.com/

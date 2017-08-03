@@ -106,7 +106,8 @@ function DatePlace(marker) {
   };
 
   /**
-   * Applies a search by either setting itself to visible if it matches the search, or hiding itself if it doesn't.
+   * Applies a search by either setting itself to visible if it matches the
+   * search, or hiding itself if it doesn't.
    */
   this.applySearch = function(text) {
     text = text.trim().toLowerCase();
@@ -125,6 +126,7 @@ function DatePlace(marker) {
 /**
  * Creates a Venue object cotaining multiple pieces of information about a
  * venue.
+ *
  * @param {Object} venue - A JSON object response from the Foursquare API
  * containing information about a venue.
  */
@@ -149,7 +151,8 @@ function Venue(venue) {
     }
   });
 
-  // If we find photos, then select the first one to display on window
+  // If we find photos, then select the first one to display once the page
+  // loads.
   if (this.photoLinks.length) {
     this.selectedPhoto(this.photoLinks[0]);
     this.selectedPhotoIndex(0);

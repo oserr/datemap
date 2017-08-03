@@ -47,7 +47,7 @@ This is not the only way of automating the keys. For example, you might also use
 ## Testing the application
 Assuming that you are using my setup with Flask, and this root folder is your current working directory, do the following to get started
 
-1. Install Anaconda if you don't have it. See this [instructions][conda].
+1. Install Anaconda if you don't have it. See these [instructions][conda].
 2. Save your Foursquare API client key and secret in *foursquare-api.txt*.
 3. Save your Google Maps API key in *google-maps-api-key.txt*.
 4. Create the conda environment

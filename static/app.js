@@ -336,7 +336,7 @@ function ViewModel(cityCenter, locationNames) {
     if (dp != null) {
       const dpArr = self.datePlaces();
       const nextDp = dpArr[(dp.id + 1) % dpArr.length];
-      google.maps.event.trigger(nextDp.marker, 'click');
+      self.triggerClickOnMarker(nextDp);
     }
   }
 
@@ -349,7 +349,7 @@ function ViewModel(cityCenter, locationNames) {
     if (dp != null) {
       const dpArr = self.datePlaces();
       const prevDp = dpArr[(dp.id - 1 + dpArr.length) % dpArr.length];
-      google.maps.event.trigger(prevDp.marker, 'click');
+      self.triggerClickOnMarker(prevDp);
     }
   }
 }

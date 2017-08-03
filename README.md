@@ -55,10 +55,10 @@ The application does the following:
 5. Searches for each of the venues in Foursquare using their [search end point][10]
 6. Fetches the venue info using Foursquare's [venues endpoint][11]
 7. Renders a single page app allowing users to see information about the different venues, which containing the following:
-  * map
-  * venue info
-  * pictures of the venue
-  * a street view of the location
+.. * map
+.. * venue info
+.. * pictures of the venue
+.. * a street view of the location
 
 [1]: http://knockoutjs.com/
 [2]: https://developers.google.com/maps/

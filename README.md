@@ -2,12 +2,12 @@
 
 A Udacity project to create a single page web app that uses [KnockoutJS][1], and the [Google Maps][2] and [Foursquare][3] APIs. The map displays a partial list of romantic locations recommended [here][4].
 
-# Developer API keys
+## Developer API keys
 
-## Getting a key
+### Getting a key
 To access the Google Maps and Foursquare developer APIs you need to obtain client keys that need to be embedded in the HTML/Javascript. Obtaining keys from them is straight forward, but it is a little more complicated for Google simply because they have a ton of other developer APIs. To get started with Google, follow their [Get API Key][5] instructions. To get started with Foursquare, follow the instructions in the [developer site][3].
 
-## Embedding the keys in the application
+### Embedding the keys in the application
 The last few lines of _index.html_ contain a few template parameters indicating where the API keys need to go:
 
 ```html
@@ -44,7 +44,7 @@ YOUR_GOOGLE_MAPS_KEY_HERE
 
 This is not the only way of automating the keys. For example, you might also use something like [GulpJs][8] to put together the template, simply spitting out the end-result once instead of using Flask to put it together on every request. Or you can simply copy the keys into the file manually. What's important is that the keys need to be embedded in the application.
 
-# The application
+## The application
 
 The application does the following:
 
@@ -62,7 +62,7 @@ The application does the following:
     * a search box allowing users to filter the date locations
     * a list of the date locations which users can use instead of the markers to display information about the venue in the venue info box, the venue photos box, and the street view
 
-## Geocoding locations
+### Geocoding locations
 For detailed information about Google's Geocoding API, refer to their [Getting Started][12] guide. My use case was pretty simple, as manifested by the simple function I created to geocode place names:
 
 ```javascript
@@ -86,7 +86,7 @@ function geocodePlaceName(placeName, geocoder) {
 
 If you have a `Geocoder`, then all you need to do is pass in an object literal with an `address` field (see [Geocoder reference][13] for other `GeocoderRequest` options), and a callback to process the results -- an array which may contain more than one coordinate, with the very first one being the best guess. When using the Geocoder, it is important to note that requests are rate-limited to about 10 per second.
 
-## Creating a Google Map
+### Creating a Google Map
 For detailed information about constructing a map with different options, refer to the reference for the [Map][14] and [MapOptions][15]. In my case, I was perfectly fine with the default map, so it was easy to create one and then to add a listener to the map in order to re-center it on window resizes:
 
 ```javascript
@@ -101,7 +101,7 @@ google.maps.event.addDomListener(window, "resize", () => {
 });
 ```
 
-## Creating a marker for each venue location
+### Creating a marker for each venue location
 For detailed information about markers, refer to the [Marker][16] reference, but the essential part is creating a marker with a position, icon, and a map. E.g.,
 
 ```javascript
@@ -114,7 +114,7 @@ const marker = new google.maps.Marker({
 });
 ```
 
-## Using Foursquare's API search endpoint
+### Using Foursquare's API search endpoint
 For detailed information about searching for venues in Foursquare, refer to their [search endpoint documentation][10], but the gist of it is making a GET request with 5 parameters: the API version number, a _near_ location, query, and the client ID and secret. Although not necessary, I decided to use [Axios][17] for the Foursquare API requests because I wanted to try Axios, but in production it would make more sense to simply use [fetch][18] or [JQuery][19], thus avoiding an extra dependency and download.
 
 ```javascript
@@ -141,7 +141,7 @@ function searchVenue(locationName) {
 
 Assuming that at least one venue is found, and that the JSON response is `Response`, then the results put in an array of venues in `Response.response.venues`, and each venue object has an `id` field that can be used to fetch all the venue information from Foursquare.
 
-## Using Foursquare's API venues endpoint
+### Using Foursquare's API venues endpoint
 For detailed information about fecthing data for a venue in Foursquare, refer to their [venues endpoint documentation][11], but the gist of it is making a GET request for a specific venue with the venue ID and supplying 3 parameters in the request: the API version number, and the client ID and secret, like this
 
 ```javascript
@@ -157,10 +157,10 @@ function getVenueInfo(idObj) {
 }
 ```
 
-## Wires the app with KnockoutJS
+### Wires the app with KnockoutJS
 The view model bound to KO is `ViewModel`, and the main benefit of using KO is that it makes it easir to allow the user to cycle through the date locations without having to resort to [callback hell][20]. For example, to display the contact info for a venue when a user selects a different venue, it is not necessary to attach a bunch of listeners on different DOM elements to update them manually, but rather we can bind the data we want to display, i.e., the model, with the HTML, i.e., the view, and add some logic for KO to observe the data so that the data is updated automatically when it changes.
 
-### The model
+#### The model
 To allow KO to observe which date location is selected, I added a variable, `selectedDatePlace`, that is assigned the date location a user selects. By making it a `ko.observable`, KO is notifed anytime the state of `selectedDatePlace` changes.
 
 ```javascript
@@ -176,7 +176,7 @@ function ViewModel(cityCenter, locationNames) {
   this.searchText = ko.observable('');
 ```
 
-### The view
+#### The view
 Without KnockoutJS, I would have had to add logic to fetch the HTML elements displaying venue information, however, with KnockoutJS it is simply a matter of binding via `data-bind` the data with the tag, and KO takes care of updating the DOM nodes when the data changes.
 
 ```html
@@ -214,8 +214,6 @@ Without KnockoutJS, I would have had to add logic to fetch the HTML elements dis
   </div>
 </div>
 ```
-
-
 
 [1]: http://knockoutjs.com/
 [2]: https://developers.google.com/maps/

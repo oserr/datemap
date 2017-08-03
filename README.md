@@ -112,6 +112,33 @@ const marker = new google.maps.Marker({
 });
 ```
 
+## Searching for venues in Foursquare
+For detailed information about searching for venues in Foursquare, refer to their [search endpoint documentation][10], but the gist of it is making a GET request with 5 parameters: the API version number, a _near_ location, query, and the client ID and secret. Although not necessary, I decided to use [Axios][17] for the Foursquare API requests because I wanted to try Axios, but in production it would make more sense to simply use [fetch][18] or [JQuery][19], thus avoiding an extra dependency and download.
+
+```javascript
+function searchVenue(locationName) {
+  return axios.get('https://api.foursquare.com/v2/venues/search', {
+    params: {
+      v: 20161016,
+      near: 'San Francisco, CA',
+      query: locationName,
+      limit: 1,
+      client_id: CLIENT_ID,
+      client_secret: CLIENT_SECRET
+    }
+  })
+  .then(response => {
+    const data = response.data;
+    if (!data.response.venues || !data.response.venues.length) {
+      return Promise.reject(new Error('Search did not yield any venues'));
+    }
+    return data.response.venues[0];
+  });
+}
+```
+
+Assuming that at least one venue is found, and that the JSON response is `Response`, then the results put in an array of venues in `Response.response.venues`, and each venue object has an `id` field that can be used to fetch all the venue information from Foursquare.
+
 
 [1]: http://knockoutjs.com/
 [2]: https://developers.google.com/maps/
@@ -129,3 +156,6 @@ const marker = new google.maps.Marker({
 [14]: https://developers.google.com/maps/documentation/javascript/3.exp/reference#Map
 [15]: https://developers.google.com/maps/documentation/javascript/3.exp/reference#MapOptions
 [16]: https://developers.google.com/maps/documentation/javascript/3.exp/reference#Marker
+[17]: https://github.com/mzabriskie/axios
+[18]: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
+[19]: https://jquery.com/

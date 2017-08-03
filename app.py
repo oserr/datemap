@@ -53,15 +53,6 @@ def index():
         client_id=client_id,
         client_secret=client_secret)
 
-@app.route('/other')
-def other():
-    '''Allows a user to get all the items.'''
-    return flask.render_template(
-        'index_other.html',
-        key=api_key,
-        client_id=client_id,
-        client_secret=client_secret)
-
 if __name__ == '__main__':
     app.debug = True
     app.run(host='0.0.0.0', port=5000)

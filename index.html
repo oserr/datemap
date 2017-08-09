@@ -28,6 +28,9 @@
                 <button type="button"  class="btn btn-secondary form-control" data-bind="click: clearSearch">Clear</button>
               </span>
           </form>
+          <ul class="nav navbar-nav navbar-right hidden-lg hidden-md hidden-sm input-group" data-bind="foreach: datePlaces">
+            <li data-bind="css: { active: isSelected() }"><a href="#" data-bind="text: marker.getTitle(), event: {mouseover: doMouseOver, mouseout: doMouseOut}, click: $root.triggerClickOnMarker, visible: isVisible"></a></li>
+          </ul>
         </div>
       </div>
     </nav>

@@ -82,6 +82,16 @@ td p {
 .navbar {
   background-color: #443850;
 }
+
+/*
+ * Allow user to scroll navbar list when screen is smaller than list.
+ */
+.navbar .navbar-collapse.in {
+  max-height: 100vh !important;
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+}
+
 /*
  * Top navigation
  * Hide default border to remove 1px line.

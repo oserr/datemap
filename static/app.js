@@ -230,6 +230,7 @@ function ViewModel(cityCenter, locationNames) {
   this.geocoder = new google.maps.Geocoder();
   this.defaultIcon = makeMarkerIcon('0091ff');
   this.highlightedIcon = makeMarkerIcon('FFFF24');
+  this.selectedIcon = makeMarkerIcon('A70830');
   this.shouldShowInfo = ko.observable(false);
   this.streetViewService = new google.maps.StreetViewService();
   this.selectedDatePlace = ko.observable(null);
@@ -294,7 +295,13 @@ function ViewModel(cityCenter, locationNames) {
     self.shouldShowInfo(true);
     dp = self.selectedDatePlace();
     if (dp !== null) {
+      if (dp.id === datePlace.id) {
+        // If user clicks on a place that is already selected then don't do
+        // anything.
+        return;
+      }
       dp.isSelected(false);
+      dp.marker.setIcon(self.defaultIcon);
       $('#street-view').empty();
     }
     self.selectedDatePlace(datePlace);
@@ -437,16 +444,23 @@ function createDatePlace(locationInfo, id, map) {
     self.showInfo(datePlace);
     datePlace.initStreetView(self.streetViewService)
     .then(dp => dp.initVenue())
-    .then(dp => dp.venue().rewindPhotos())
+    .then(dp => {
+      dp.venue().rewindPhotos();
+      dp.marker.setIcon(self.selectedIcon);
+    })
     .catch(err => reportError(err));
   });
 
   marker.addListener('mouseover', function() {
-    this.setIcon(self.highlightedIcon);
+    if (!datePlace.isSelected()) {
+      this.setIcon(self.highlightedIcon);
+    }
   });
 
   marker.addListener('mouseout', function() {
-    this.setIcon(self.defaultIcon);
+    if (!datePlace.isSelected()) {
+      this.setIcon(self.defaultIcon);
+    }
   });
 
   return datePlace;

@@ -96,7 +96,8 @@ function DatePlace(marker, id) {
         .then(venue => {
           self.venue(new Venue(venue));
           return self;
-        });
+        })
+        .catch(err => reportError(err));
     });
   };
 

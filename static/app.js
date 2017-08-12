@@ -177,7 +177,6 @@ function Venue(venue) {
     return index !== null && index < self.photoLinks.length - 1;
   };
 
-
   /**
    * Updates the current photo to the next photo in the list.
    */

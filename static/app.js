@@ -2,6 +2,14 @@ const UNKNOWN_OR_NA = 'Unknown or n/a';
 
 
 /**
+ * onerror callback for Google Maps API script.
+ */
+function onError() {
+  alert('Unable to initialize App');
+}
+
+
+/**
  * Initializes a DatePlace with a Google Maps API Marker.
  *
  * @param {Marker} marker - A Google Maps API marker that contains the

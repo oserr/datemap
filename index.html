@@ -122,7 +122,7 @@
       var CLIENT_SECRET = '{{ client_secret }}';
     </script>
     <script src="static/app.js"></script>
-    <script async defer
+    <script async defer onerror="onError()"
       src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key={{ key }}&v=3&callback=initViewModel">
     </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>

@@ -12,16 +12,19 @@ body {
 #map {
   min-height: 400px;
 }
+
 @media only screen and (min-height: 1000px) {
   #map {
     min-height: 600px;
   }
 }
+
 @media only screen and (min-height: 1200px) {
   #map {
     min-height: 900px;
   }
 }
+
 .map-col {
   margin-bottom: 20px;
   min-height: 400px;
@@ -35,11 +38,13 @@ body {
   width: 300px;
   margin: 0 auto;
 }
+
 @media (min-width: 992px) {
   #street-view {
     width: 350;
   }
 }
+
 @media (min-width: 1200px) {
   #street-view {
     width: 400;
@@ -75,6 +80,7 @@ td p {
 .btn-group-flex {
   display: flex;
 }
+
 .btn-flex {
   flex: 1;
 }
@@ -108,15 +114,19 @@ td p {
 .sidebar {
   display: none;
 }
+
 .sidebar a {
   color: #8e5572;
 }
+
 .sidebar .input-group {
   margin-bottom: 5px;
 }
+
 .sidebar .btn-group {
   margin-bottom: 20px;
 }
+
 @media (min-width: 768px) {
   .sidebar {
     position: fixed;
@@ -139,10 +149,12 @@ td p {
   margin-bottom: 20px;
   margin-left: -20px;
 }
+
 .nav-sidebar > li > a {
   padding-right: 20px;
   padding-left: 20px;
 }
+
 .nav-sidebar > .active > a,
 .nav-sidebar > .active > a:hover,
 .nav-sidebar > .active > a:focus {
@@ -150,13 +162,13 @@ td p {
   background-color: #bcaa99;
 }
 
-
 /*
  * Main content
  */
 .main {
   padding: 20px;
 }
+
 @media (min-width: 768px) {
   .main {
     padding-right: 40px;
@@ -170,9 +182,11 @@ td p {
 .placeholders {
   margin-bottom: 30px;
 }
+
 .placeholder {
   margin-bottom: 20px;
 }
+
 .placeholder img {
   display: inline-block;
   border-radius: 5%;
@@ -182,6 +196,7 @@ td p {
 .input-group button {
   background-color: buttonface;
 }
+
 button:hover,
 .input-group button:hover
 {

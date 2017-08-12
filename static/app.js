@@ -235,6 +235,7 @@ function ViewModel(cityCenter, locationNames) {
   this.streetViewService = new google.maps.StreetViewService();
   this.selectedDatePlace = ko.observable(null);
   this.searchText = ko.observable('');
+  this.bounds = null;
 
   let self = this;
 
@@ -244,10 +245,12 @@ function ViewModel(cityCenter, locationNames) {
       center: locationInfo.location,
       zoom: 13,
     });
+    self.bounds = new google.maps.LatLngBounds();
     google.maps.event.addDomListener(window, "resize", () => {
         var center = self.map.getCenter();
         google.maps.event.trigger(self.map, "resize");
         self.map.setCenter(center);
+        self.map.fitBounds(self.bounds);
     });
   })
   .then(() => {
@@ -278,13 +281,12 @@ function ViewModel(cityCenter, locationNames) {
   // item so page can respond more quickly when user selects a different date
   // location.
   .then(() => {
-    const bounds = new google.maps.LatLngBounds();
     const arr = self.datePlaces();
     arr.forEach(dp => {
-      bounds.extend(dp.marker.position);
+      self.bounds.extend(dp.marker.position);
       dp.initVenue();
     });
-    self.map.fitBounds(bounds);
+    self.map.fitBounds(self.bounds);
   })
   .catch(err => reportError(err));
 

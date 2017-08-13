@@ -59,12 +59,8 @@ function DatePlace(marker, id) {
               }
             };
 
-            // Clean street-view container before attaching street view
-            const streetViewDiv = $('#street-view');
-            streetViewDiv.empty();
-
             // Attach the panorama in the container and center it in viewport
-            new google.maps.StreetViewPanorama(streetViewDiv[0], opts);
+            new google.maps.StreetViewPanorama($('#street-view')[0], opts);
             return resolve(self);
           } else {
             return reject(

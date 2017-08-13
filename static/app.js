@@ -308,7 +308,6 @@ function ViewModel(cityCenter, locationNames) {
       }
       dp.isSelected(false);
       dp.marker.setIcon(self.defaultIcon);
-      $('#street-view').empty();
     }
     self.selectedDatePlace(datePlace);
     datePlace.isSelected(true);
